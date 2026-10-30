@@ -81,13 +81,13 @@ window.OWLS = [
     calls: [
       {
         src: "media/audio/asio-otus.mp3",
-        href: "https://xeno-canto.org/1107816",
-        author: "Sébastien Provost, Sonothèque ADVL",
-        license: "CC0",
-        via: "Xeno-canto, XC1107816",
+        href: "https://xeno-canto.org/986925",
+        author: "Lars Edenius",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC986925",
         title: "Токовая песня",
         when: "Ранняя весна, тихие ночи без ветра. Самец поёт с присады в перелеске.",
-        hint: "Мягкое одиночное «уу» каждые две-три секунды. Тихое: кажется, что птица очень далеко, даже если она в соседнем перелеске."
+        hint: "Одно глухое «уу» примерно раз в две-три секунды. Без второй фразы, как у серой неясыти."
       }
     ],
     photos: [
