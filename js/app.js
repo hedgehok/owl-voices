@@ -70,6 +70,17 @@ function owlById(id) {
   return window.OWLS.find((owl) => owl.id === id);
 }
 
+function clipIndex(source) {
+  const raw = source?.dataset ? source.dataset.clip : source;
+  if (raw === undefined || raw === null || raw === "") return 0;
+  const index = Number(raw);
+  return Number.isFinite(index) ? index : 0;
+}
+
+function callAt(owl, index) {
+  return owl.calls[index] || owl.calls[0];
+}
+
 function routeId() {
   return decodeURIComponent(location.hash.replace(/^#\/?/, ""));
 }
@@ -107,7 +118,8 @@ function render() {
 function renderCatalog() {
   document.title = "Ночные голоса — атлас сов";
   const cards = window.OWLS.map((owl, index) => {
-    const hay = norm([owl.name, owl.latin, owl.mnemonic, owl.place, owl.habitat, owl.audio.hint, ...owl.about].join(" "));
+    const voices = owl.calls.map((call) => `${call.title} ${call.when} ${call.hint}`).join(" ");
+    const hay = norm([owl.name, owl.latin, owl.mnemonic, owl.place, owl.habitat, voices, ...owl.about].join(" "));
     return `<article class="card" data-id="${owl.id}" data-groups="${owl.groups.join(",")}" data-hay="${esc(hay)}">
       <a class="card-photo" href="#/${owl.id}"><img src="${photoSrc(owl, 0)}" alt="${esc(owl.photos[0].alt)}" ${index < 4 ? "loading=\"eager\"" : "loading=\"lazy\""}></a>
       <div class="card-body">
@@ -158,10 +170,26 @@ function renderDetail(owl) {
   }).join("");
   const credits = [
     ...owl.photos.map((photo, index) => `<li>Фото ${index + 1}: ${esc(photo.author)}. <a href="${esc(sourceHref(photo))}" target="_blank" rel="noopener">${esc(sourceName(photo))}</a>, ${licenseLink(photo.license)}.</li>`),
-    `<li>Запись: ${esc(owl.audio.author)}. <a href="${esc(sourceHref(owl.audio))}" target="_blank" rel="noopener">${esc(owl.audio.via)}</a>, ${licenseLink(owl.audio.license)}.</li>`
+    ...owl.calls.map((call) => `<li>Запись «${esc(call.title)}»: ${esc(call.author)}. <a href="${esc(sourceHref(call))}" target="_blank" rel="noopener">${esc(call.via)}</a>, ${licenseLink(call.license)}.</li>`)
   ].join("");
-  const nc = owl.audio.license.includes("NC")
-    ? `<p class="license-note">Запись под лицензией ${esc(owl.audio.license)}: её можно слушать и хранить в некоммерческом учебном проекте, с указанием автора.</p>`
+  const calls = owl.calls.map((call, index) => {
+    const nc = call.license.includes("NC")
+      ? `<p class="license-note">Запись под лицензией ${esc(call.license)}: её можно слушать и хранить в некоммерческом учебном проекте, с указанием автора.</p>`
+      : "";
+    return `<section class="voice-call">
+        <h3>${esc(call.title)}</h3>
+        <p class="when">${esc(call.when)}</p>
+        <p class="hint">${esc(call.hint)}</p>
+        <div class="player">
+          <button class="play" type="button" data-play="${owl.id}" data-clip="${index}" aria-label="Слушать: ${esc(owl.name)}, ${esc(call.title)}">${playIcon()}</button>
+          <div class="wave" data-clip="${index}" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Позиция: ${esc(call.title)}"><canvas></canvas><div class="shade"></div></div>
+          <div class="times"><span class="now">0:00</span><span class="dur">0:00</span></div>
+        </div>
+        ${nc}
+      </section>`;
+  }).join("");
+  const repertoire = owl.calls.length > 1
+    ? `<p class="repertoire">В каталоге звучит первый голос — по нему этот вид узнают.</p>`
     : "";
   app.innerHTML = `<a class="back" href="#/">← К каталогу</a>
     <article class="species">
@@ -181,14 +209,8 @@ function renderDetail(owl) {
         </div>
         <aside class="voice-panel">
           <p class="eyebrow">Голос</p>
-          <h2>${esc(owl.audio.title)}</h2>
-          <p class="hint">${esc(owl.audio.hint)}</p>
-          <div class="player">
-            <button class="play" type="button" data-play="${owl.id}" aria-label="Слушать: ${esc(owl.name)}">${playIcon()}</button>
-            <div class="wave" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Позиция записи"><canvas></canvas><div class="shade"></div></div>
-            <div class="times"><span class="now">0:00</span><span class="dur">0:00</span></div>
-          </div>
-          ${nc}
+          ${repertoire}
+          <div class="calls">${calls}</div>
           <dl class="facts">${facts}</dl>
         </aside>
       </div>
@@ -278,34 +300,36 @@ function showPhoto(index) {
 
 async function drawWave(owl) {
   const token = ++waveToken;
-  const canvas = document.querySelector(".wave canvas");
-  if (!canvas) return;
-  try {
-    let cached = waveCache.get(owl.audio.src);
-    if (!cached) {
-      const response = await fetch(owl.audio.src);
-      const buffer = await response.arrayBuffer();
-      const context = new AudioContext();
-      const decoded = await context.decodeAudioData(buffer.slice(0));
-      const channel = decoded.getChannelData(0);
-      const bars = 96;
-      const peaks = [];
-      const step = Math.floor(channel.length / bars);
-      for (let i = 0; i < bars; i += 1) {
-        let peak = 0;
-        for (let j = 0; j < step; j += 24) peak = Math.max(peak, Math.abs(channel[i * step + j] || 0));
-        peaks.push(peak);
+  await Promise.all(owl.calls.map(async (call, index) => {
+    const canvas = document.querySelector(`.wave[data-clip="${index}"] canvas`);
+    if (!canvas) return;
+    try {
+      let cached = waveCache.get(call.src);
+      if (!cached) {
+        const response = await fetch(call.src);
+        const buffer = await response.arrayBuffer();
+        const context = new AudioContext();
+        const decoded = await context.decodeAudioData(buffer.slice(0));
+        const channel = decoded.getChannelData(0);
+        const bars = 96;
+        const peaks = [];
+        const step = Math.floor(channel.length / bars);
+        for (let i = 0; i < bars; i += 1) {
+          let peak = 0;
+          for (let j = 0; j < step; j += 24) peak = Math.max(peak, Math.abs(channel[i * step + j] || 0));
+          peaks.push(peak);
+        }
+        cached = { peaks, duration: decoded.duration };
+        waveCache.set(call.src, cached);
+        context.close();
       }
-      cached = { peaks, duration: decoded.duration };
-      waveCache.set(owl.audio.src, cached);
-      context.close();
+      if (token !== waveToken) return;
+      paintWave(canvas, cached.peaks);
+    } catch (error) {
+      paintWave(canvas, []);
     }
-    if (token !== waveToken) return;
-    paintWave(canvas, cached.peaks);
-    syncProgress();
-  } catch (error) {
-    paintWave(canvas, []);
-  }
+  }));
+  if (token === waveToken) syncProgress();
 }
 
 function paintWave(canvas, peaks) {
@@ -328,17 +352,21 @@ function paintWave(canvas, peaks) {
   }
 }
 
-function toggle(id) {
+function toggle(id, clip = 0) {
   const owl = owlById(id);
   if (!owl) return;
+  const call = callAt(owl, clip);
+  const index = owl.calls[clip] ? clip : 0;
   if (touring) stopTour(false);
-  if (audio.dataset.id === id && !audio.paused) {
+  const same = audio.dataset.id === id && clipIndex(audio) === index;
+  if (same && !audio.paused) {
     audio.pause();
     return;
   }
-  if (audio.dataset.id !== id) {
+  if (!same) {
     audio.dataset.id = id;
-    audio.src = owl.audio.src;
+    audio.dataset.clip = String(index);
+    audio.src = call.src;
   }
   audio.play().catch(() => {});
 }
@@ -392,7 +420,8 @@ function playLimited(owl, limit, token) {
     };
     audio.addEventListener("ended", finish);
     audio.dataset.id = owl.id;
-    audio.src = owl.audio.src;
+    audio.dataset.clip = "0";
+    audio.src = owl.calls[0].src;
     audio.play().then(() => {
       if (token !== tourToken) {
         finish();
@@ -412,20 +441,23 @@ function playLimited(owl, limit, token) {
 
 function syncPlaying() {
   const id = audio.dataset.id || "";
+  const clip = audio.dataset.clip || "0";
   const playing = Boolean(id) && !audio.paused;
   const owl = owlById(id);
   const dock = document.querySelector(".dock");
   const showDock = playing && owl && routeId() !== id;
   if (showDock) {
     dock.hidden = false;
-    dock.querySelector("[data-play]").dataset.play = id;
+    const button = dock.querySelector("[data-play]");
+    button.dataset.play = id;
+    button.dataset.clip = clip;
     dock.querySelector(".dock-name").textContent = owl.name;
-    dock.querySelector(".dock-sub").textContent = owl.audio.title;
+    dock.querySelector(".dock-sub").textContent = callAt(owl, Number(clip)).title;
   } else {
     dock.hidden = true;
   }
   document.querySelectorAll("[data-play]").forEach((button) => {
-    const on = playing && button.dataset.play === id;
+    const on = playing && button.dataset.play === id && String(clipIndex(button)) === clip;
     button.classList.toggle("is-on", on);
     button.setAttribute("aria-pressed", on ? "true" : "false");
     if (button.closest(".dock")) button.setAttribute("aria-label", on ? "Пауза" : "Продолжить");
@@ -438,30 +470,38 @@ function syncPlaying() {
 function clipDuration() {
   if (Number.isFinite(audio.duration) && audio.duration > 0) return audio.duration;
   const owl = owlById(audio.dataset.id);
-  const cached = owl && waveCache.get(owl.audio.src);
+  const call = owl && callAt(owl, clipIndex(audio));
+  const cached = call && waveCache.get(call.src);
   return cached?.duration || 0;
 }
 
 function syncProgress() {
   const owl = owlById(routeId());
-  if (!owl || audio.dataset.id !== owl.id) return;
-  const duration = clipDuration();
-  const ratio = duration ? audio.currentTime / duration : 0;
-  const shade = document.querySelector(".shade");
-  const wave = document.querySelector(".wave");
-  if (shade) shade.style.width = `${(1 - ratio) * 100}%`;
-  if (wave) wave.setAttribute("aria-valuenow", String(Math.round(ratio * 100)));
-  const now = document.querySelector(".now");
-  const dur = document.querySelector(".dur");
-  if (now) now.textContent = fmt(audio.currentTime);
-  if (dur) dur.textContent = fmt(duration);
+  if (!owl) return;
+  const playingHere = audio.dataset.id === owl.id;
+  const active = playingHere ? clipIndex(audio) : -1;
+  document.querySelectorAll(".voice-call").forEach((row, index) => {
+    const call = owl.calls[index];
+    const cached = waveCache.get(call.src);
+    const activeRow = playingHere && index === active;
+    const duration = activeRow ? clipDuration() : (cached?.duration || 0);
+    const ratio = activeRow && duration ? audio.currentTime / duration : 0;
+    const shade = row.querySelector(".shade");
+    const wave = row.querySelector(".wave");
+    if (shade) shade.style.width = `${(1 - ratio) * 100}%`;
+    if (wave) wave.setAttribute("aria-valuenow", String(Math.round(ratio * 100)));
+    const now = row.querySelector(".now");
+    const dur = row.querySelector(".dur");
+    if (now) now.textContent = fmt(activeRow ? audio.currentTime : 0);
+    if (dur) dur.textContent = fmt(duration);
+  });
 }
 
 function seek(event) {
   const wave = event.target.closest(".wave");
   const owl = owlById(routeId());
   const duration = clipDuration();
-  if (!wave || !owl || !duration || audio.dataset.id !== owl.id) return;
+  if (!wave || !owl || !duration || audio.dataset.id !== owl.id || clipIndex(audio) !== clipIndex(wave)) return;
   const rect = wave.getBoundingClientRect();
   const clientX = event.clientX ?? rect.left + rect.width / 2;
   const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
@@ -472,7 +512,7 @@ document.body.addEventListener("click", (event) => {
   const play = event.target.closest("[data-play]");
   if (play) {
     event.preventDefault();
-    toggle(play.dataset.play);
+    toggle(play.dataset.play, clipIndex(play));
     return;
   }
   if (event.target.closest("[data-stop]")) {
@@ -513,8 +553,9 @@ document.body.addEventListener("click", (event) => {
   if (wave) {
     const owl = owlById(routeId());
     if (!owl) return;
-    if (audio.dataset.id !== owl.id) {
-      toggle(owl.id);
+    const index = clipIndex(wave);
+    if (audio.dataset.id !== owl.id || clipIndex(audio) !== index) {
+      toggle(owl.id, index);
       audio.addEventListener("loadedmetadata", () => seek(event), { once: true });
       return;
     }
@@ -531,7 +572,8 @@ document.body.addEventListener("input", (event) => {
 document.body.addEventListener("keydown", (event) => {
   if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
   if (event.target.closest("input")) return;
-  if (event.target.closest(".wave") && audio.dataset.id === routeId() && clipDuration()) {
+  const waveKey = event.target.closest(".wave");
+  if (waveKey && audio.dataset.id === routeId() && clipIndex(audio) === clipIndex(waveKey) && clipDuration()) {
     event.preventDefault();
     const delta = event.key === "ArrowRight" ? 5 : -5;
     audio.currentTime = Math.min(clipDuration(), Math.max(0, audio.currentTime + delta));

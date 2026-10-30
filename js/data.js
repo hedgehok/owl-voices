@@ -30,15 +30,18 @@ window.OWLS = [
       { id: "strix-uralensis", note: "Длиннохвостая крупнее, а песня суше и лающе. У серой фраза дрожит и звучит певуче." },
       { id: "asio-otus", note: "Ушастая сова повторяет одно тихое «уу». У серой неясыти целая фраза." }
     ],
-    audio: {
-      src: "media/audio/strix-aluco.mp3",
-      href: "https://xeno-canto.org/1184870",
-      author: "Mark James Pearson",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC1184870",
-      title: "Песня и крик",
-      hint: "В записи два разных голоса. Брачная песня самца — дрожащее «ху-ууу… ху, ху-хууу». Резкое «квик» — отдельный крик, его легко принять за другую птицу."
-    },
+    calls: [
+      {
+        src: "media/audio/strix-aluco.mp3",
+        href: "https://xeno-canto.org/1184870",
+        author: "Mark James Pearson",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1184870",
+        title: "Песня и крик",
+        when: "Песня самца — осень и конец зимы, в тёплые ночи почти круглый год. Резкий «квик» — перекличка пары и тревога, часто это самка.",
+        hint: "В одной записи оба голоса. Песня — дрожащее «ху-ууу… ху, ху-хууу». «Квик» короче и резче, его легко принять за другую птицу."
+      }
+    ],
     photos: [
       { file: "Waldkauz-Strix aluco.jpg", author: "Andreas Trepte", license: "CC BY-SA 2.5", alt: "Серая неясыть на ветке" },
       { file: "Strix aluco aluco.jpg", author: "Chrumps", license: "CC BY-SA 3.0", alt: "Серая неясыть, тёмные глаза без перьевых ушек" },
@@ -76,15 +79,18 @@ window.OWLS = [
       { id: "asio-flammeus", note: "Болотная сова токует серией в полёте. Ушастая повторяет одно тихое «уу» с присады." },
       { id: "strix-aluco", note: "У серой неясыти длинная дрожащая фраза и чёрные глаза. У ушастой — одиночные гудки." }
     ],
-    audio: {
-      src: "media/audio/asio-otus.mp3",
-      href: "https://xeno-canto.org/1107816",
-      author: "Sébastien Provost, Sonothèque ADVL",
-      license: "CC0",
-      via: "Xeno-canto, XC1107816",
-      title: "Брачная песня самца",
-      hint: "Мягкое одиночное «уу» каждые две-три секунды. Тихое: кажется, что птица очень далеко, даже если она в соседнем перелеске."
-    },
+    calls: [
+      {
+        src: "media/audio/asio-otus.mp3",
+        href: "https://xeno-canto.org/1107816",
+        author: "Sébastien Provost, Sonothèque ADVL",
+        license: "CC0",
+        via: "Xeno-canto, XC1107816",
+        title: "Брачная песня самца",
+        when: "Ранняя весна, тихие ночи без ветра. Самец поёт с присады в перелеске.",
+        hint: "Мягкое одиночное «уу» каждые две-три секунды. Тихое: кажется, что птица очень далеко, даже если она в соседнем перелеске."
+      }
+    ],
     photos: [
       { file: "Asio otus (Lukasz Lukasik).jpg", author: "Lukasz Lukasik", license: "CC BY-SA 3.0", alt: "Ушастая сова с приподнятыми перьевыми ушками" },
       { file: "Asio otus - Ransuil.jpg", author: "Piet Reens", license: "CC BY-SA 3.0", alt: "Ушастая сова сидит вертикально" },
@@ -122,15 +128,28 @@ window.OWLS = [
       { id: "asio-otus", note: "Ушастая сова ночная и говорит одиночными тихими «уу» из леса, а не серией над полем." },
       { id: "bubo-scandiacus", note: "Белая сова тоже открытых мест, но она крупная и почти белая." }
     ],
-    audio: {
-      src: "media/audio/asio-flammeus.mp3",
-      href: "https://xeno-canto.org/661609",
-      author: "Romuald Mikusek",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC661609",
-      title: "Токовая песня",
-      hint: "Самец повторяет «бу-бу-бу-бу», а между сериями хлопает крыльями: сухой щелчок входит в ток. Тревожный вскрик с присады звучит иначе, его здесь нет."
-    },
+    calls: [
+      {
+        src: "media/audio/asio-flammeus.mp3",
+        href: "https://xeno-canto.org/661609",
+        author: "Romuald Mikusek",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC661609",
+        title: "Токовая песня",
+        when: "Весна. Самец токует в полёте над лугом или болотом.",
+        hint: "Серия «бу-бу-бу-бу». Между сериями сухой щелчок: самец хлопает крыльями под телом."
+      },
+      {
+        src: "media/audio/asio-flammeus-alarm.mp3",
+        href: "https://xeno-canto.org/1157238",
+        author: "Teet Sirotkin",
+        license: "CC BY-SA 4.0",
+        via: "Xeno-canto, XC1157238",
+        title: "Тревожный крик",
+        when: "В любое время года, если птицу спугнули. Кричит с присады, не в токовом полёте.",
+        hint: "Короткий резкий вскрик. На серию «бу-бу-бу-бу» и хлопки крыльев не похож."
+      }
+    ],
     photos: [
       { file: "Hibou des marais.jpg", author: "Rodolphe", license: "CC BY-SA 3.0", alt: "Болотная сова смотрит в камеру" },
       { href: "https://www.inaturalist.org/observations/69455128", author: "ecovore", license: "CC BY 4.0", alt: "Болотная сова на открытом месте" },
@@ -168,15 +187,18 @@ window.OWLS = [
       { id: "athene-noctua", note: "Домовый сыч кричит резко и с перепадами. Сплюшка монотонна, как метроном." },
       { id: "otus-sunia", note: "Восточная совка говорит похоже, но слог короче и гнусавее, и живёт она на Дальнем Востоке." }
     ],
-    audio: {
-      src: "media/audio/otus-scops.mp3",
-      href: "https://xeno-canto.org/1161165",
-      author: "Matthias Keller",
-      license: "CC BY 4.0",
-      via: "Xeno-canto, XC1161165",
-      title: "Брачная песня",
-      hint: "Одно и то же «сплю» или «тью» всю ночь, каждые две-три секунды. Кажется механическим. Если пауза ровная и ночь тёплая — это она."
-    },
+    calls: [
+      {
+        src: "media/audio/otus-scops.mp3",
+        href: "https://xeno-canto.org/1161165",
+        author: "Matthias Keller",
+        license: "CC BY 4.0",
+        via: "Xeno-canto, XC1161165",
+        title: "Брачная песня",
+        when: "Тёплые ночи с мая по июль. Самец тянет одно и то же с одной точки всю ночь.",
+        hint: "Одно и то же «сплю» или «тью» каждые две-три секунды. Кажется механическим. Если пауза ровная и ночь тёплая — это она."
+      }
+    ],
     photos: [
       { file: "Autillo.jpg", author: "Álvaro Rodríguez Alberich", license: "CC BY-SA 2.0", alt: "Сплюшка, маскировочный рисунок оперения" },
       { href: "https://www.inaturalist.org/observations/26331652", author: "Karim Haddad", license: "CC BY 4.0", alt: "Сплюшка с приподнятыми перьевыми ушками" },
@@ -214,15 +236,18 @@ window.OWLS = [
       { id: "otus-scops", note: "Сплюшка меньше, с ушками, и всю ночь тянет ровное «сплю». Сыч кричит резко и разнообразно." },
       { id: "aegolius-funereus", note: "Мохноногий сыч — птица тайги, и песня у него ровная очередь «пу-пу-пу»." }
     ],
-    audio: {
-      src: "media/audio/athene-noctua.mp3",
-      href: "https://xeno-canto.org/986542",
-      author: "Fabien H",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC986542",
-      title: "Песня",
-      hint: "Резкое восходящее «ку-виик»: так перекликается пара. Бывают и лающие серии. На низкое уханье не похоже. Часто начинает ещё в сумерках, сидя на столбе или крыше."
-    },
+    calls: [
+      {
+        src: "media/audio/athene-noctua.mp3",
+        href: "https://xeno-canto.org/986542",
+        author: "Fabien H",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC986542",
+        title: "Песня пары",
+        when: "Весна, часто ещё в сумерках. Пара сидит на столбе, крыше или камне.",
+        hint: "Резкое восходящее «ку-виик»: самец и самка перекликаются. При тревоге тот же сыч лает короткими сериями — это другой голос, его в записи нет."
+      }
+    ],
     photos: [
       { file: "Athene noctua am1.jpg", author: "Artur Mikołajewski", license: "CC BY 3.0", alt: "Домовый сыч на крыше" },
       { href: "https://www.inaturalist.org/observations/257463592", author: "Javier Sánchez Álvarez", license: "CC BY 4.0", alt: "Домовый сыч в нише кирпичной стены" },
@@ -260,15 +285,18 @@ window.OWLS = [
       { id: "strix-aluco", note: "Серая неясыть поёт дрожащей музыкальной фразой. Длиннохвостая звучит грубее и «собаче»." },
       { id: "strix-nebulosa", note: "Бородатая неясыть не лает фразами, а выводит ровную очередь гудков." }
     ],
-    audio: {
-      src: "media/audio/strix-uralensis.mp3",
-      href: "https://xeno-canto.org/1082571",
-      author: "Lars Edenius",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC1082571",
-      title: "Брачная песня",
-      hint: "Глухая серия, похожая на далёкий лай: «ву-хууу… ву-ху-хуу». Ниже и суше, чем у серой неясыти, без её певучего дрожания."
-    },
+    calls: [
+      {
+        src: "media/audio/strix-uralensis.mp3",
+        href: "https://xeno-canto.org/1082571",
+        author: "Lars Edenius",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1082571",
+        title: "Брачная песня",
+        when: "Поздняя зима и весна, иногда снова осенью. Самец поёт в большом лесу.",
+        hint: "Глухая серия, похожая на далёкий лай: «ву-хууу… ву-ху-хуу». Ниже и суше, чем у серой неясыти, без её певучего дрожания."
+      }
+    ],
     photos: [
       { file: "Dugorepa sova (Strix uralensis), odrasla jedinka; Ural owl adult.jpg", author: "Zoran Gavrilović", license: "CC BY-SA 4.0", alt: "Длиннохвостая неясыть, взрослая птица" },
       { file: "Strix uralensis 0a1.JPG", author: "Alpsdake", license: "CC BY-SA 3.0", alt: "Длиннохвостая неясыть на стволе" },
@@ -306,15 +334,28 @@ window.OWLS = [
       { id: "aegolius-funereus", note: "Мохноногий сыч крупнее и глуше: очередь «пу-пу-пу», а не высокий свист." },
       { id: "otus-scops", note: "Сплюшка южная и ночная. Её «сплю» одиночное, у сыча — свистовая очередь." }
     ],
-    audio: {
-      src: "media/audio/glaucidium-passerinum.mp3",
-      href: "https://xeno-canto.org/1164041",
-      author: "Zsombor Károlyi",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC1164041",
-      title: "Брачная песня",
-      hint: "Ровная высокая очередь «тю-тю-тю», без подъёма по тону. Осенью тот же самец свистит иначе: звуки идут вверх, как гамма."
-    },
+    calls: [
+      {
+        src: "media/audio/glaucidium-passerinum.mp3",
+        href: "https://xeno-canto.org/1164041",
+        author: "Zsombor Károlyi",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1164041",
+        title: "Весенняя песня",
+        when: "Конец зимы и весна, часто ещё днём. Самец свистит с вершины ели.",
+        hint: "Ровная высокая очередь «тю-тю-тю», без подъёма по тону. По этому голосу сыча и узнают."
+      },
+      {
+        src: "media/audio/glaucidium-passerinum-autumn.mp3",
+        href: "https://xeno-canto.org/759368",
+        author: "Dag Österlund",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC759368",
+        title: "Осенняя песня",
+        when: "Сентябрь — ноябрь. Самец заявляет участок, часто тоже днём.",
+        hint: "Свист поднимается по тону, как гамма. Это не весенняя очередь одинаковых «тю-тю-тю»."
+      }
+    ],
     photos: [
       { href: "https://www.inaturalist.org/observations/323469080", author: "Andrew Bazdyrev", license: "CC BY 4.0", alt: "Воробьиный сыч на сухом пне" },
       { href: "https://www.inaturalist.org/observations/323469080", author: "Andrew Bazdyrev", license: "CC BY 4.0", alt: "Воробьиный сыч, жёлтые глаза" },
@@ -352,15 +393,18 @@ window.OWLS = [
       { id: "otus-scops", note: "Сплюшка тянет одно «сплю» с паузой. Сыч выдаёт быструю очередь." },
       { id: "glaucidium-passerinum", note: "Воробьиный сыч ещё мельче и свистит «тю-тю-тю». У мохноногого очередь глуше: «пу-пу-пу»." }
     ],
-    audio: {
-      src: "media/audio/aegolius-funereus.mp3",
-      href: "https://xeno-canto.org/1145038",
-      author: "Johan Lundgren",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC1145038",
-      title: "Брачная песня самца",
-      hint: "Быстрая очередь гулких «пу-пу-пу-пу», иногда с ускорением к концу. Весенней ночью в хвойном лесу её ни с чем не спутать."
-    },
+    calls: [
+      {
+        src: "media/audio/aegolius-funereus.mp3",
+        href: "https://xeno-canto.org/1145038",
+        author: "Johan Lundgren",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1145038",
+        title: "Брачная песня самца",
+        when: "Март — май, тихие ночи. Самец поёт у дупла или дуплянки, которую потом покажет самке.",
+        hint: "Быстрая очередь гулких «пу-пу-пу-пу», иногда с ускорением к концу. Весенней ночью в хвойном лесу её ни с чем не спутать."
+      }
+    ],
     photos: [
       { href: "https://www.inaturalist.org/observations/66000803", author: "Julia Moning", license: "CC BY 4.0", alt: "Мохноногий сыч в лесу" },
       { file: "Raufußkauz.JPG", author: "Wosella", license: "CC BY-SA 3.0", alt: "Мохноногий сыч с жёлтыми глазами" },
@@ -398,15 +442,18 @@ window.OWLS = [
       { id: "strix-uralensis", note: "Длиннохвостая неясыть лает отдельными фразами. Бородатая гудит ровной очередью." },
       { id: "bubo-bubo", note: "Филин крупнее в деле и говорит редким «у-ху», а не серией гудков." }
     ],
-    audio: {
-      src: "media/audio/strix-nebulosa.mp3",
-      href: "https://xeno-canto.org/653979",
-      author: "Lars Edenius",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC653979",
-      title: "Брачная песня",
-      hint: "Ровные низкие гудки примерно раз в секунду: «уу, уу, уу, уу». Глубоко и монотонно. Самка отвечает выше и короче."
-    },
+    calls: [
+      {
+        src: "media/audio/strix-nebulosa.mp3",
+        href: "https://xeno-canto.org/653979",
+        author: "Lars Edenius",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC653979",
+        title: "Брачная песня",
+        when: "Весна, часто ещё по снегу. Самец выводит серию, самка может ответить выше и короче.",
+        hint: "Ровные низкие гудки примерно раз в секунду: «уу, уу, уу, уу». Глубоко и монотонно."
+      }
+    ],
     photos: [
       { file: "Great Gray Owl (2018).jpg", author: "Wildreturn", license: "CC BY 2.0", alt: "Бородатая неясыть с кольцами на лицевом диске" },
       { file: "Great Gray Owl (31997952366).jpg", author: "dfaulder", license: "CC BY 2.0", alt: "Бородатая неясыть на присаде" },
@@ -443,15 +490,18 @@ window.OWLS = [
       { id: "aegolius-funereus", note: "Мохноногий сыч тоже таёжный, но он маленький и выдаёт очередь отдельных «пу-пу-пу»." },
       { id: "ninox-japonica", note: "Иглоногая сова тоже длиннохвостая, но говорит коротким «бу-бу», а не трелью." }
     ],
-    audio: {
-      src: "media/audio/surnia-ulula.mp3",
-      href: "https://xeno-canto.org/862737",
-      author: "Stein Ø. Nilsen",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC862737",
-      title: "Брачная трель",
-      hint: "Длинная журчащая трель «уль-уль-уль-уль» на несколько секунд. Тревога совсем другая: резкое «ки-ки-ки»."
-    },
+    calls: [
+      {
+        src: "media/audio/surnia-ulula.mp3",
+        href: "https://xeno-canto.org/862737",
+        author: "Stein Ø. Nilsen",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC862737",
+        title: "Брачная трель",
+        when: "Весна, часто днём, с макушки ели. Тревога — отдельный резкий «ки-ки-ки», его в записи нет.",
+        hint: "Длинная журчащая трель «уль-уль-уль-уль» на несколько секунд."
+      }
+    ],
     photos: [
       { href: "https://www.inaturalist.org/observations/105838044", author: "Вячеслав Юсупов", license: "CC BY 4.0", alt: "Ястребиная сова с длинным хвостом" },
       { href: "https://www.inaturalist.org/observations/105838044", author: "Вячеслав Юсупов", license: "CC BY 4.0", alt: "Ястребиная сова на вершине дерева" },
@@ -489,15 +539,18 @@ window.OWLS = [
       { id: "strix-uralensis", note: "Тоже низкий голос, но это серия слогов, а не редкое двусложное «у-ху»." },
       { id: "ketupa-blakistoni", note: "Рыбный филин тоже огромный и очень низкий, но держится у реки и поёт дуэтом." }
     ],
-    audio: {
-      src: "media/audio/bubo-bubo.mp3",
-      href: "https://xeno-canto.org/1077911",
-      author: "Esperanza Poveda",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC1077911",
-      title: "Брачная песня самца",
-      hint: "Два слога: глухое «у-ху», второй ниже. Повтор редкий, раз в несколько секунд, и звук разносится на километр. Самка отвечает выше и хрипло."
-    },
+    calls: [
+      {
+        src: "media/audio/bubo-bubo.mp3",
+        href: "https://xeno-canto.org/1077911",
+        author: "Esperanza Poveda",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1077911",
+        title: "Брачная песня самца",
+        when: "С осени до весны, громче всего в феврале — апреле. Самец поёт с присады, самка отвечает выше и хрипло.",
+        hint: "Два слога: глухое «у-ху», второй ниже. Повтор редкий, раз в несколько секунд, и звук разносится на километр."
+      }
+    ],
     photos: [
       { file: "Bubo bubo portrait.jpg", author: "indygnome", license: "CC BY 2.0", alt: "Филин анфас: оранжевые глаза и перьевые ушки" },
       { file: "Eagle Owl IMG 9203.JPG", author: "Brocken Inaglory", license: "CC BY-SA 3.0", alt: "Филин сидит, виден крупный силуэт" },
@@ -535,15 +588,18 @@ window.OWLS = [
       { id: "surnia-ulula", note: "Тоже север и дневная охота, но ястребиная сова полосатая и выдаёт длинную трель." },
       { id: "asio-flammeus", note: "Болотная сова тоже сидит на открытом месте, но она бурая и меньше." }
     ],
-    audio: {
-      src: "media/audio/bubo-scandiacus.mp3",
-      href: "https://xeno-canto.org/343145",
-      author: "Tero Linjama",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC343145",
-      title: "Крик",
-      hint: "Уханья, как у филина, нет. В записи короткий громкий крик самки, ближе к лаю. Визг и щелчки клюва у белой совы тоже бывают — это другие звуки."
-    },
+    calls: [
+      {
+        src: "media/audio/bubo-scandiacus.mp3",
+        href: "https://xeno-canto.org/343145",
+        author: "Tero Linjama",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC343145",
+        title: "Крик самки",
+        when: "У гнездовой норы и при тревоге. Брачной песни-уханья у белой совы нет.",
+        hint: "Короткий громкий крик, ближе к лаю, чем к уханью филина. Визг и щелчки клюва — другие её звуки, в этой записи их нет."
+      }
+    ],
     photos: [
       { file: "Snowy owl at Jones Beach (04882).jpg", author: "Rhododendrites", license: "CC BY-SA 4.0", alt: "Белая сова на открытом месте у побережья" },
       { file: "Búho nival (Bubo scandiacus), Arcos de la Frontera, Cádiz, España, 2015-12-08, DD 03.JPG", author: "Diego Delso", license: "CC BY-SA 4.0", alt: "Белая сова с тёмными пестринами" },
@@ -581,15 +637,18 @@ window.OWLS = [
       { id: "asio-otus", note: "Ушастая сова тоже живёт у полей, но ухает. Сипуха не ухает вообще." },
       { id: "asio-flammeus", note: "Болотная сова дневная и бурая, с обычной совиной головой, не с сердцем." }
     ],
-    audio: {
-      src: "media/audio/tyto-alba.mp3",
-      href: "https://xeno-canto.org/540358",
-      author: "Luis Alvarez Menendez",
-      license: "CC BY-SA 4.0",
-      via: "Xeno-canto, XC540358",
-      title: "Крик",
-      hint: "Не уханье. Долгий сиплый визг, от которого легко вздрогнуть. У гнезда добавляется храпящее мурлыканье, его в этой записи нет."
-    },
+    calls: [
+      {
+        src: "media/audio/tyto-alba.mp3",
+        href: "https://xeno-canto.org/540358",
+        author: "Luis Alvarez Menendez",
+        license: "CC BY-SA 4.0",
+        via: "Xeno-canto, XC540358",
+        title: "Крик",
+        when: "Почти круглый год у постоянного гнезда, часто в полёте над фермой или полем.",
+        hint: "Долгий сиплый визг, не уханье. У гнезда сипуха ещё храпит и мурлычет — это другой звук, его в записи нет."
+      }
+    ],
     photos: [
       { file: "Flickr - Rainbirder - Barn Owl (Tyto alba).jpg", author: "Steve Garvie", license: "CC BY-SA 2.0", alt: "Сипуха с лицевым диском в форме сердца" },
       { file: "Kerkuil André.JPG", author: "André Eijkenaar", license: "CC BY 3.0", alt: "Сипуха на присаде" },
@@ -627,15 +686,18 @@ window.OWLS = [
       { id: "surnia-ulula", note: "Ястребиная сова севернее и днём выдаёт длинную трель. Иглоногая говорит коротким «бу-бу»." },
       { id: "otus-sunia", note: "Восточная совка гораздо мельче, с ушками, и повторяет одиночное «тьюк»." }
     ],
-    audio: {
-      src: "media/audio/ninox-japonica.mp3",
-      href: "https://xeno-canto.org/327479",
-      author: "Tom Wulf",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC327479",
-      title: "Брачная песня",
-      hint: "Два ровных слога «бу-бу» и пауза. Пара повторяет это много раз. Выше и чаще, чем уханье филина, и совсем не похоже на трель ястребиной совы."
-    },
+    calls: [
+      {
+        src: "media/audio/ninox-japonica.mp3",
+        href: "https://xeno-canto.org/327479",
+        author: "Tom Wulf",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC327479",
+        title: "Брачная песня",
+        when: "Май — июль, с прилёта. Пара повторяет песню в широколиственном лесу.",
+        hint: "Два ровных слога «бу-бу» и пауза. Выше и чаще, чем уханье филина, и совсем не похоже на трель ястребиной совы."
+      }
+    ],
     photos: [
       { href: "https://www.inaturalist.org/observations/190397781", author: "Wang.QG", license: "CC BY 4.0", alt: "Иглоногая сова на ветке среди листвы" },
       { href: "https://www.inaturalist.org/observations/244042593", author: "James Eaton", license: "CC0", alt: "Иглоногая сова смотрит в камеру, виден длинный хвост" },
@@ -673,15 +735,18 @@ window.OWLS = [
       { id: "otus-scops", note: "Сплюшка поёт протяжнее и чище, «сплю». У восточной слог короче: «тьюк»." },
       { id: "otus-semitorques", note: "Ошейниковая совка крупнее и ниже голосом. В России она гнездится на южных Курилах." }
     ],
-    audio: {
-      src: "media/audio/otus-sunia.mp3",
-      href: "https://xeno-canto.org/1138302",
-      author: "Andrew White",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC1138302",
-      title: "Брачная песня",
-      hint: "Короткое гнусавое «тьюк» примерно раз в секунду, всю тёплую ночь. У сплюшки слог длиннее и свистовее. Пары иногда перекликаются."
-    },
+    calls: [
+      {
+        src: "media/audio/otus-sunia.mp3",
+        href: "https://xeno-canto.org/1138302",
+        author: "Andrew White",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1138302",
+        title: "Брачная песня",
+        when: "Май — июль, тёплые ночи после прилёта. Самец повторяет слог всю ночь, пара иногда перекликается.",
+        hint: "Короткое гнусавое «тьюк» примерно раз в секунду. У сплюшки слог длиннее и свистовее."
+      }
+    ],
     photos: [
       { href: "https://www.inaturalist.org/observations/137142507", author: "Wang.QG", license: "CC BY 4.0", alt: "Восточная совка прижалась к стволу" },
       { href: "https://www.inaturalist.org/observations/137142507", author: "Wang.QG", license: "CC BY 4.0", alt: "Восточная совка среди хвои" },
@@ -718,15 +783,18 @@ window.OWLS = [
       { id: "bubo-bubo", note: "Филин говорит редким «у-ху» и не привязан к реке. У рыбного филина низкий парный дуэт." },
       { id: "strix-nebulosa", note: "Бородатая неясыть мельче и гудит ровной очередью, а не двумя низкими слогами." }
     ],
-    audio: {
-      src: "media/audio/ketupa-blakistoni.mp3",
-      href: "https://xeno-canto.org/1016800",
-      author: "Uku Paal",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC1016800",
-      title: "Дуэт пары",
-      hint: "Очень низко. Самец выдыхает глухое «буу», самка почти сразу отвечает, и вместе слышно «буу-уу». Пауза длинная, звук идёт вдоль реки."
-    },
+    calls: [
+      {
+        src: "media/audio/ketupa-blakistoni.mp3",
+        href: "https://xeno-canto.org/1016800",
+        author: "Uku Paal",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1016800",
+        title: "Дуэт пары",
+        when: "Конец зимы и весна, ночь у незамерзающей реки. Поют самец и самка вместе.",
+        hint: "Очень низко. Самец выдыхает глухое «буу», самка почти сразу отвечает, и вместе слышно «буу-уу». Пауза длинная, звук идёт вдоль реки."
+      }
+    ],
     photos: [
       { href: "https://www.inaturalist.org/observations/73985693", author: "Morten Ross", license: "CC BY 4.0", alt: "Рыбный филин на заснеженной ветке" },
       { href: "https://www.inaturalist.org/observations/293650407", author: "Rajan Rao", license: "CC BY 4.0", alt: "Рыбный филин, вид сбоку" },
@@ -764,15 +832,18 @@ window.OWLS = [
       { id: "otus-sunia", note: "Восточная совка мельче и говорит чаще: короткое «тьюк», а не редкое низкое «вук»." },
       { id: "otus-scops", note: "Сплюшка западная и свистит «сплю». Ошейниковая ниже и живёт на островах." }
     ],
-    audio: {
-      src: "media/audio/otus-semitorques.mp3",
-      href: "https://xeno-canto.org/344453",
-      author: "Albert Lastukhin, Yuri Glushchenko",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC344453",
-      title: "Брачная песня",
-      hint: "Низкое «вук» с паузой в пару секунд. Глубже, чем песня восточной совки, и реже, чем метроном сплюшки."
-    },
+    calls: [
+      {
+        src: "media/audio/otus-semitorques.mp3",
+        href: "https://xeno-canto.org/344453",
+        author: "Albert Lastukhin, Yuri Glushchenko",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC344453",
+        title: "Брачная песня",
+        when: "Весна и начало лета, ночь в лесу. Самец повторяет низкий слог с длинной паузой.",
+        hint: "Низкое «вук» с паузой в пару секунд. Глубже, чем песня восточной совки, и реже, чем метроном сплюшки."
+      }
+    ],
     photos: [
       { href: "https://www.inaturalist.org/observations/170395720", author: "Andrew Bazdyrev", license: "CC BY 4.0", alt: "Ошейниковая совка выглядывает из дупла" },
       { href: "https://www.inaturalist.org/observations/170395720", author: "Andrew Bazdyrev", license: "CC BY 4.0", alt: "Ошейниковая совка в дупле, другой кадр" },
@@ -809,15 +880,18 @@ window.OWLS = [
       { id: "otus-scops", note: "Сплюшка свистит выше и чище. Буланая воркует низким «уу»." },
       { id: "otus-sunia", note: "Восточная совка рыжее и живёт на Дальнем Востоке, не в пустынях." }
     ],
-    audio: {
-      src: "media/audio/otus-brucei.mp3",
-      href: "https://xeno-canto.org/982497",
-      author: "Sven Normant",
-      license: "CC BY-NC-SA 4.0",
-      via: "Xeno-canto, XC982497",
-      title: "Брачная песня",
-      hint: "Низкое мягкое «уу» с паузой около секунды. Ниже, чем «сплю» сплюшки, ближе к воркованию. Пары перекликаются."
-    },
+    calls: [
+      {
+        src: "media/audio/otus-brucei.mp3",
+        href: "https://xeno-canto.org/982497",
+        author: "Sven Normant",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC982497",
+        title: "Брачная песня",
+        when: "Весна, тёплые ночи в тугае, саксауле и садах. Пары перекликаются.",
+        hint: "Низкое мягкое «уу» с паузой около секунды. Ниже, чем «сплю» сплюшки, ближе к воркованию."
+      }
+    ],
     photos: [
       { href: "https://www.inaturalist.org/observations/263179786", author: "Jigu", license: "CC BY 4.0", alt: "Буланая совка сливается с корой" },
       { href: "https://www.inaturalist.org/observations/263179786", author: "Jigu", license: "CC BY 4.0", alt: "Буланая совка среди корней и листьев" },
