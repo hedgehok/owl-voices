@@ -130,13 +130,13 @@ window.OWLS = [
     calls: [
       {
         src: "media/audio/asio-flammeus.mp3",
-        href: "https://xeno-canto.org/661609",
-        author: "Romuald Mikusek",
+        href: "https://xeno-canto.org/474679",
+        author: "Stein Ø. Nilsen",
         license: "CC BY-NC-SA 4.0",
-        via: "Xeno-canto, XC661609",
+        via: "Xeno-canto, XC474679",
         title: "Токовая песня",
         when: "Весна. Самец токует в полёте над лугом или болотом.",
-        hint: "Серия «бу-бу-бу-бу». Между сериями сухой щелчок: самец хлопает крыльями под телом."
+        hint: "Быстрая серия «бу-бу-бу-бу», пауза в несколько секунд и снова серия."
       },
       {
         src: "media/audio/asio-flammeus-alarm.mp3",
