@@ -70,6 +70,14 @@ function owlById(id) {
   return window.OWLS.find((owl) => owl.id === id);
 }
 
+function mimicById(id) {
+  return (window.MIMICS || []).find((item) => item.id === id);
+}
+
+function voiceById(id) {
+  return owlById(id) || mimicById(id);
+}
+
 function clipIndex(source) {
   const raw = source?.dataset ? source.dataset.clip : source;
   if (raw === undefined || raw === null || raw === "") return 0;
@@ -111,6 +119,7 @@ function render() {
   const id = routeId();
   if (!id) renderCatalog();
   else if (owlById(id)) renderDetail(owlById(id));
+  else if (mimicById(id)) renderMimic(mimicById(id));
   else renderMissing();
   syncPlaying();
 }
@@ -133,6 +142,18 @@ function renderCatalog() {
       </div>
     </article>`;
   }).join("");
+  const mimics = (window.MIMICS || []).map((item) => {
+    const call = item.calls[0];
+    const hay = norm([item.name, item.latin, item.line, item.note, call.title, call.when, call.hint].join(" "));
+    return `<article class="mimic" data-id="${item.id}" data-hay="${esc(hay)}">
+      <div class="mimic-title">
+        <a href="#/${item.id}"><h3>${esc(item.name)}</h3></a>
+        <button class="play" type="button" data-play="${item.id}" aria-label="Слушать: ${esc(item.name)}">${playIcon()}</button>
+      </div>
+      <p class="latin">${esc(item.latin)}</p>
+      <p class="place">${esc(item.note)}</p>
+    </article>`;
+  }).join("");
   const filters = GROUPS.map((item) => `<button class="filter${item.id === group ? " is-on" : ""}" type="button" data-group="${item.id}" aria-pressed="${item.id === group}">${item.label}</button>`).join("");
   app.innerHTML = `<section class="hero">
       <div>
@@ -148,6 +169,11 @@ function renderCatalog() {
     </div>
     <div class="grid">${cards}</div>
     <p class="empty" hidden>Ничего не нашлось. Попробуйте «неясыть» или «у-ху».</p>
+    <section class="mimics">
+      <h2>Это не сова</h2>
+      <p class="mimic-lead">Ночные голоса, которые часто принимают за уханье.</p>
+      <div class="mimic-grid">${mimics}</div>
+    </section>
     <p class="map-note">Фотографии и записи — на условиях Creative Commons. Авторы и лицензии указаны на странице каждого вида.</p>`;
   applyFilter();
 }
@@ -261,6 +287,37 @@ function mapMarkup(owl) {
   </div>`;
 }
 
+function renderMimic(item) {
+  document.title = `${item.name} — Ночные голоса`;
+  const call = item.calls[0];
+  const nc = call.license.includes("NC")
+    ? `<p class="license-note">Запись под лицензией ${esc(call.license)}: её можно слушать и хранить в некоммерческом учебном проекте, с указанием автора.</p>`
+    : "";
+  app.innerHTML = `<a class="back" href="#/">← К каталогу</a>
+    <article class="mimic-page">
+      <header>
+        <p class="eyebrow">Это не сова</p>
+        <h1>${esc(item.name)}</h1>
+        <p class="latin">${esc(item.latin)}</p>
+      </header>
+      <p class="mimic-lead">${esc(item.note)}</p>
+      <section class="voice-call">
+        <h3>${esc(call.title)}</h3>
+        <p class="when">${esc(call.when)}</p>
+        <p class="hint">${esc(call.hint)}</p>
+        <div class="player">
+          <button class="play" type="button" data-play="${item.id}" data-clip="0" aria-label="Слушать: ${esc(item.name)}, ${esc(call.title)}">${playIcon()}</button>
+          <div class="wave" data-clip="0" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Позиция: ${esc(call.title)}"><canvas></canvas><div class="shade"></div></div>
+          <div class="times"><span class="now">0:00</span><span class="dur">0:00</span></div>
+        </div>
+        ${nc}
+      </section>
+      <details class="credits"><summary>Источник записи</summary><ul><li>Запись «${esc(call.title)}»: ${esc(call.author)}. <a href="${esc(sourceHref(call))}" target="_blank" rel="noopener">${esc(call.via)}</a>, ${licenseLink(call.license)}.</li></ul></details>
+    </article>`;
+  drawWave(item);
+  syncProgress();
+}
+
 function renderMissing() {
   document.title = "Вид не найден — Ночные голоса";
   app.innerHTML = `<a class="back" href="#/">← К каталогу</a><section class="prose"><h1>Такой совы в атласе нет</h1><p>Вернитесь к списку и выберите вид оттуда.</p></section>`;
@@ -275,8 +332,16 @@ function applyFilter() {
     card.hidden = !matches;
     if (matches) visible += 1;
   });
+  let mimics = 0;
+  document.querySelectorAll(".mimic").forEach((card) => {
+    const matches = !needle || card.dataset.hay.includes(needle);
+    card.hidden = !matches;
+    if (matches) mimics += 1;
+  });
+  const section = document.querySelector(".mimics");
+  if (section) section.hidden = needle.length > 0 && mimics === 0;
   const empty = document.querySelector(".empty");
-  if (empty) empty.hidden = visible !== 0;
+  if (empty) empty.hidden = visible !== 0 || mimics !== 0;
 }
 
 function showPhoto(index) {
@@ -353,7 +418,7 @@ function paintWave(canvas, peaks) {
 }
 
 function toggle(id, clip = 0) {
-  const owl = owlById(id);
+  const owl = voiceById(id);
   if (!owl) return;
   const call = callAt(owl, clip);
   const index = owl.calls[clip] ? clip : 0;
@@ -443,7 +508,7 @@ function syncPlaying() {
   const id = audio.dataset.id || "";
   const clip = audio.dataset.clip || "0";
   const playing = Boolean(id) && !audio.paused;
-  const owl = owlById(id);
+  const owl = voiceById(id);
   const dock = document.querySelector(".dock");
   const showDock = playing && owl && routeId() !== id;
   if (showDock) {
@@ -462,21 +527,21 @@ function syncPlaying() {
     button.setAttribute("aria-pressed", on ? "true" : "false");
     if (button.closest(".dock")) button.setAttribute("aria-label", on ? "Пауза" : "Продолжить");
   });
-  document.querySelectorAll(".card").forEach((card) => {
+  document.querySelectorAll(".card, .mimic").forEach((card) => {
     card.classList.toggle("is-playing", playing && card.dataset.id === id);
   });
 }
 
 function clipDuration() {
   if (Number.isFinite(audio.duration) && audio.duration > 0) return audio.duration;
-  const owl = owlById(audio.dataset.id);
+  const owl = voiceById(audio.dataset.id);
   const call = owl && callAt(owl, clipIndex(audio));
   const cached = call && waveCache.get(call.src);
   return cached?.duration || 0;
 }
 
 function syncProgress() {
-  const owl = owlById(routeId());
+  const owl = voiceById(routeId());
   if (!owl) return;
   const playingHere = audio.dataset.id === owl.id;
   const active = playingHere ? clipIndex(audio) : -1;
@@ -499,7 +564,7 @@ function syncProgress() {
 
 function seek(event) {
   const wave = event.target.closest(".wave");
-  const owl = owlById(routeId());
+  const owl = voiceById(routeId());
   const duration = clipDuration();
   if (!wave || !owl || !duration || audio.dataset.id !== owl.id || clipIndex(audio) !== clipIndex(wave)) return;
   const rect = wave.getBoundingClientRect();
@@ -551,7 +616,7 @@ document.body.addEventListener("click", (event) => {
   }
   const wave = event.target.closest(".wave");
   if (wave) {
-    const owl = owlById(routeId());
+    const owl = voiceById(routeId());
     if (!owl) return;
     const index = clipIndex(wave);
     if (audio.dataset.id !== owl.id || clipIndex(audio) !== index) {

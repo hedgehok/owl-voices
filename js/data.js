@@ -38,7 +38,17 @@ window.OWLS = [
         via: "Xeno-canto, XC1163713",
         title: "Токовая песня",
         when: "Конец зимы и весна, с февраля по апрель. Самец поёт с присады. Осенью ток начинается снова, а в тихую тёплую ночь фразу слышно и в другие месяцы.",
-        hint: "Две части и пауза в несколько секунд. Сначала долгое дрожащее «ху-ууу», затем «ху, ху-хууу». Резкое «квик» — другой голос, чаще самки, в этой записи его нет."
+        hint: "Две части и пауза в несколько секунд. Сначала долгое дрожащее «ху-ууу», затем «ху, ху-хууу». Резкое «квик» самки — следующая запись."
+      },
+      {
+        src: "media/audio/strix-aluco-female.mp3",
+        href: "https://xeno-canto.org/1182895",
+        author: "Per Folkesson",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1182895",
+        title: "Крик самки",
+        when: "Круглый год, чаще у гнезда и когда пара перекликается. На ток самца не похоже.",
+        hint: "Короткое резкое «квик», часто по два-три подряд, затем пауза в несколько секунд."
       }
     ],
     photos: [
@@ -88,6 +98,16 @@ window.OWLS = [
         title: "Токовая песня",
         when: "Ранняя весна, тихие ночи без ветра. Самец поёт с присады в перелеске.",
         hint: "Одно глухое «уу» примерно раз в две-три секунды. Без второй фразы, как у серой неясыти."
+      },
+      {
+        src: "media/audio/asio-otus-beg.mp3",
+        href: "https://xeno-canto.org/1049371",
+        author: "Fredrik Grahn",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1049371",
+        title: "Птенцовый крик",
+        when: "Лето, июнь и июль. Слётки сидят в ветвях у гнезда и просят корм.",
+        hint: "Высокое скрипучее «пии». На глухое весеннее «уу» самца не похоже."
       }
     ],
     photos: [
@@ -548,6 +568,16 @@ window.OWLS = [
         title: "Токовая песня",
         when: "С осени до весны, громче всего в феврале — апреле. Самец поёт с присады, самка отвечает выше и хрипло.",
         hint: "Два слога: глухое «у-ху», второй ниже. Повтор редкий, раз в несколько секунд, и звук разносится на километр."
+      },
+      {
+        src: "media/audio/bubo-bubo-alarm.mp3",
+        href: "https://xeno-canto.org/401475",
+        author: "Patrik Åberg",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC401475",
+        title: "Тревожный крик",
+        when: "У гнезда, если пару потревожили. Самка лает чаще, чем поёт самец.",
+        hint: "Короткий резкий лай, парами. Это не редкое низкое «у-ху»."
       }
     ],
     photos: [
@@ -896,6 +926,85 @@ window.OWLS = [
       { href: "https://www.inaturalist.org/observations/263179786", author: "Jigu", license: "CC BY 4.0", alt: "Буланая совка сливается с корой" },
       { href: "https://www.inaturalist.org/observations/263179786", author: "Jigu", license: "CC BY 4.0", alt: "Буланая совка среди корней и листьев" },
       { href: "https://www.inaturalist.org/observations/263179786", author: "Jigu", license: "CC BY 4.0", alt: "Буланая совка, другой ракурс" }
+    ]
+  }
+];
+
+window.MIMICS = [
+  {
+    id: "vulpes-vulpes",
+    name: "Лиса",
+    latin: "Vulpes vulpes",
+    line: "резкий вскрик",
+    note: "Ночью короткий лай и визг лисы принимают за птицу.",
+    calls: [
+      {
+        src: "media/audio/vulpes-vulpes.mp3",
+        href: "https://xeno-canto.org/1105620",
+        author: "Lars Edenius",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1105620",
+        title: "Ночной крик",
+        when: "Ночь, чаще зимой и в конце лета, когда лисы перекликаются.",
+        hint: "Короткие отрывистые вскрики. Ровного уханья в них нет."
+      }
+    ]
+  },
+  {
+    id: "caprimulgus-europaeus",
+    name: "Козодой",
+    latin: "Caprimulgus europaeus",
+    line: "долгая трель",
+    note: "Ровная трель в сумерках. Её принимают за насекомое или за странную сову.",
+    calls: [
+      {
+        src: "media/audio/caprimulgus-europaeus.mp3",
+        href: "https://xeno-canto.org/1141265",
+        author: "Mats Olsson",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1141265",
+        title: "Песня",
+        when: "Тёплые сумерки с конца мая по июль, над опушкой или вырубкой.",
+        hint: "Длинная сухая трель, как трещотка. Тянется много секунд подряд, без пауз совиного тока."
+      }
+    ]
+  },
+  {
+    id: "botaurus-stellaris",
+    name: "Выпь",
+    latin: "Botaurus stellaris",
+    line: "гудок",
+    note: "Низкое «у-ум» с тростников принимают за филина.",
+    calls: [
+      {
+        src: "media/audio/botaurus-stellaris.mp3",
+        href: "https://xeno-canto.org/1189719",
+        author: "Tahvo Repo",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC1189719",
+        title: "Брачная песня",
+        when: "Весенние ночи на тростниковом болоте. Самец гудит, опустив клюв к воде.",
+        hint: "Низкое «у-ум» примерно раз в две-три секунды. Ниже филина и без второго слога."
+      }
+    ]
+  },
+  {
+    id: "pelophylax-ridibundus",
+    name: "Озёрная лягушка",
+    latin: "Pelophylax ridibundus",
+    line: "смех",
+    note: "Хор у пруда ночью кажется птичьим, если не видеть воду.",
+    calls: [
+      {
+        src: "media/audio/pelophylax-ridibundus.mp3",
+        href: "https://xeno-canto.org/949771",
+        author: "Olivier Swift",
+        license: "CC BY-NC-SA 4.0",
+        via: "Xeno-canto, XC949771",
+        title: "Брачный крик",
+        when: "Тёплые ночи у пруда, с мая. Самец кричит с воды.",
+        hint: "Короткие трели подряд, как смех. Звук идёт от воды, не из кроны."
+      }
     ]
   }
 ];
