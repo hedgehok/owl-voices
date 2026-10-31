@@ -72,7 +72,34 @@ h1, h2, h3 { line-height: 1.12; margin: 0; }
   font-weight: 600;
   letter-spacing: 0.01em;
 }
-.mark { width: 36px; height: 36px; color: var(--gold-soft); }
+.mark {
+  width: 36px;
+  height: 36px;
+  color: var(--gold-soft);
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+.brand:hover .mark,
+.brand:focus-visible .mark {
+  background: rgba(226, 177, 90, 0.12);
+}
+.film-link {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  color: var(--gold-soft);
+  opacity: 0.82;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+.film-link svg { width: 28px; height: 28px; }
+.film-link:hover, .film-link:focus-visible {
+  opacity: 1;
+  background: rgba(226, 177, 90, 0.12);
+}
 #app {
   max-width: 1120px;
   margin: 0 auto;

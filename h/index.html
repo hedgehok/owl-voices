@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Фильм</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101410">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="film.css">
+</head>
+<body>
+  <div class="stage" aria-hidden="true">
+    <div id="a" class="frame"><img alt="" decoding="async"><video muted playsinline preload="auto" disablepictureinpicture></video></div>
+    <div id="b" class="frame"><img alt="" decoding="async"><video muted playsinline preload="auto" disablepictureinpicture></video></div>
+    <div id="c" class="frame"><img alt="" decoding="async"><video muted playsinline preload="auto" disablepictureinpicture></video></div>
+  </div>
+  <p class="credit" id="credit">Фотографии взяты с iNaturalist и из Internet</p>
+  <button class="listen" id="listen" type="button" hidden>включить музыку</button>
+  <audio id="music" src="music.m4a" autoplay loop preload="auto"></audio>
+  <script src="frames.js"></script>
+  <script src="film.js"></script>
+</body>
+</html>
