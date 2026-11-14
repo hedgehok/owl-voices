@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    var path = location.pathname;
+    if (!path.endsWith("/")) path += "/";
+    var base = document.createElement("base");
+    base.href = path;
+    document.currentScript.parentNode.insertBefore(base, document.currentScript);
+  </script>
+  <title>По голосу — Ночные голоса</title>
+  <meta name="description" content="Викторина на латинские названия сов: запись голоса и четыре варианта.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101410">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="voice.css">
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <header class="top">
+    <a class="brand" href="../">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="27.2" r="12.8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M13.4 18.4 10.2 8.2 20.6 15.8z" fill="currentColor"/>
+        <path d="M34.6 18.4 37.8 8.2 27.4 15.8z" fill="currentColor"/>
+        <circle cx="18.2" cy="25.8" r="3.7" fill="#e2b15a"/>
+        <circle cx="29.8" cy="25.8" r="3.7" fill="#e2b15a"/>
+        <circle cx="18.9" cy="26" r="1.4" fill="#1a140c"/>
+        <circle cx="29.1" cy="26" r="1.4" fill="#1a140c"/>
+        <path d="M22.8 30h2.4L24 33.3z" fill="currentColor"/>
+      </svg>
+      <span>Ночные голоса</span>
+    </a>
+    <a class="atlas-link" href="../">К атласу</a>
+  </header>
+  <main id="app"></main>
+  <audio id="clip" preload="metadata"></audio>
+  <script src="../js/data.js"></script>
+  <script src="voice.js"></script>
+</body>
+</html>
