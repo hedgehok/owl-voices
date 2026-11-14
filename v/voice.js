@@ -26,24 +26,6 @@ const RANKS = [
   }
 ];
 
-const CLIPS = new Set([
-  "media/audio/strix-aluco.mp3",
-  "media/audio/strix-aluco-female.mp3",
-  "media/audio/asio-otus.mp3",
-  "media/audio/asio-otus-beg.mp3",
-  "media/audio/asio-flammeus.mp3",
-  "media/audio/asio-flammeus-alarm.mp3",
-  "media/audio/otus-scops.mp3",
-  "media/audio/athene-noctua.mp3",
-  "media/audio/glaucidium-passerinum-autumn.mp3",
-  "media/audio/surnia-ulula.mp3",
-  "media/audio/bubo-bubo.mp3",
-  "media/audio/bubo-bubo-alarm.mp3",
-  "media/audio/tyto-alba.mp3",
-  "media/audio/ninox-japonica.mp3",
-  "media/audio/otus-sunia.mp3"
-]);
-
 const THEMES = [
   {
     id: "owls",
@@ -51,7 +33,7 @@ const THEMES = [
     title: "Совы",
     text: "Голоса сов из атласа. Звучит запись, в ответах — четыре имени.",
     birds: () => (window.OWLS || []).flatMap((bird) => {
-      const calls = (bird.calls || []).filter((call) => CLIPS.has(call.src));
+      const calls = (bird.calls || []).filter((call) => call.src);
       return calls.length && bird.latin ? [{ ...bird, calls }] : [];
     })
   }
