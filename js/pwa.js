@@ -60,30 +60,48 @@ const pwaScript = document.currentScript;
   });
   if (iosBrowser() || chromiumBrowser()) showInstallOffer();
 
+  function openInstallHint() {
+    if (!hint) return;
+    const text = hint.querySelector("[data-install-text]");
+    const confirm = hint.querySelector("[data-install-confirm]");
+    const cancel = hint.querySelector("[data-install-close]");
+    if (iosBrowser()) {
+      if (text) text.textContent = "Нажмите «Поделиться», затем «На экран Домой».";
+      if (confirm) confirm.hidden = true;
+      if (cancel) cancel.textContent = "Понятно";
+    } else {
+      if (text) text.textContent = "Установить «Ночные голоса» на экран?";
+      if (confirm) confirm.hidden = false;
+      if (cancel) cancel.textContent = "Отмена";
+    }
+    if (!hint.open) hint.showModal();
+  }
+
+  async function confirmInstall() {
+    rememberPrompt();
+    const text = hint && hint.querySelector("[data-install-text]");
+    if (!deferredInstall) {
+      if (text && !iosBrowser()) text.textContent = "Браузер ещё не готов поставить приложение. Откройте его меню и выберите «Установить Ночные голоса».";
+      return;
+    }
+    const pending = deferredInstall;
+    deferredInstall = null;
+    window.__owlInstallPrompt = null;
+    const prompting = pending.prompt();
+    if (hint && hint.open) hint.close();
+    try {
+      await prompting;
+      const choice = await pending.userChoice;
+      if (choice && choice.outcome === "accepted") hideInstallOffer();
+    } catch (error) {
+      /* Системное окно установки закроется само. */
+    }
+  }
+
   if (installButton) {
-    installButton.addEventListener("click", async () => {
+    installButton.addEventListener("click", () => {
       rememberPrompt();
-      if (!deferredInstall) {
-        if (!hint) return;
-        const text = hint.querySelector("p");
-        if (text) {
-          text.textContent = iosBrowser()
-            ? "Нажмите «Поделиться», затем «На экран Домой»."
-            : "В меню браузера выберите «Установить Ночные голоса».";
-        }
-        hint.showModal();
-        return;
-      }
-      const pending = deferredInstall;
-      deferredInstall = null;
-      window.__owlInstallPrompt = null;
-      try {
-        await pending.prompt();
-        const choice = await pending.userChoice;
-        if (choice && choice.outcome === "accepted") hideInstallOffer();
-      } catch (error) {
-        /* Системное окно установки закроется само. */
-      }
+      openInstallHint();
     });
   }
 
@@ -97,7 +115,9 @@ const pwaScript = document.currentScript;
 
   if (hint) {
     const closeHint = hint.querySelector("[data-install-close]");
+    const confirmHint = hint.querySelector("[data-install-confirm]");
     if (closeHint) closeHint.addEventListener("click", () => hint.close());
+    if (confirmHint) confirmHint.addEventListener("click", () => confirmInstall());
   }
 
   function ensureStatus() {

@@ -169,6 +169,11 @@ dialog.install-hint p {
   font-size: 1.02rem;
   line-height: 1.45;
 }
+.install-hint-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
 dialog.install-hint button {
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -178,6 +183,13 @@ dialog.install-hint button {
   cursor: pointer;
 }
 dialog.install-hint button:hover { border-color: var(--line-strong); }
+dialog.install-hint [data-install-confirm] {
+  border-color: transparent;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 600;
+}
+dialog.install-hint [data-install-confirm]:hover { filter: brightness(1.05); }
 #app {
   max-width: 1120px;
   margin: 0 auto;

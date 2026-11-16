@@ -100,8 +100,11 @@
     <img alt="">
   </dialog>
   <dialog class="install-hint" id="install-hint">
-    <p>Нажмите «Поделиться», затем «На экран Домой».</p>
-    <button type="button" data-install-close>Понятно</button>
+    <p data-install-text>Установить «Ночные голоса» на экран?</p>
+    <div class="install-hint-actions">
+      <button type="button" data-install-close>Отмена</button>
+      <button type="button" data-install-confirm autofocus>Установить</button>
+    </div>
   </dialog>
   <script src="js/land.js"></script>
   <script src="js/data.js"></script>
