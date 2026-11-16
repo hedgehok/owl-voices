@@ -1,0 +1,32 @@
+{
+  "id": "./",
+  "name": "Ночные голоса",
+  "short_name": "Ночные голоса",
+  "description": "Каталог сов Евразии: фотографии, краткая биография, схема ареала и запись голоса.",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101410",
+  "theme_color": "#101410",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
