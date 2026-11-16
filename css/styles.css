@@ -59,18 +59,29 @@ h1, h2, h3 { line-height: 1.12; margin: 0; }
 .top, #app, .dock { position: relative; z-index: 1; }
 .top {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  column-gap: 16px;
+  row-gap: 8px;
   max-width: 1120px;
   margin: 0 auto;
   padding: 22px 24px 0;
 }
+.mast {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
 .brand {
   display: inline-flex;
+  flex: none;
   align-items: center;
   gap: 10px;
   text-decoration: none;
   font-weight: 600;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 .mark {
   width: 36px;
@@ -105,6 +116,68 @@ h1, h2, h3 { line-height: 1.12; margin: 0; }
   opacity: 1;
   background: rgba(226, 177, 90, 0.12);
 }
+.install-offer {
+  display: flex;
+  align-items: center;
+  flex: none;
+  margin: 0;
+  color: var(--faint);
+}
+.install-app, .install-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.install-app {
+  height: 28px;
+  padding: 0 4px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.install-dismiss {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  opacity: 0.72;
+}
+.install-dismiss svg { width: 12px; height: 12px; }
+.install-app:hover, .install-app:focus-visible,
+.install-dismiss:hover, .install-dismiss:focus-visible {
+  color: var(--gold-soft);
+  opacity: 1;
+}
+dialog.install-hint {
+  width: min(340px, calc(100vw - 36px));
+  max-width: 340px;
+  margin: auto;
+  padding: 22px 22px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: var(--bg-raise);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+dialog.install-hint p {
+  margin: 0 0 18px;
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+dialog.install-hint button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  padding: 10px 16px;
+  color: var(--text);
+  cursor: pointer;
+}
+dialog.install-hint button:hover { border-color: var(--line-strong); }
 #app {
   max-width: 1120px;
   margin: 0 auto;
@@ -523,6 +596,12 @@ dialog .text-button {
 :focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .top { row-gap: 12px; }
+  .mast { flex: 1 0 100%; gap: 10px; }
+  .corner-links { margin-left: auto; }
 }
 
 @media (max-width: 860px) {

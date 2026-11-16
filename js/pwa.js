@@ -11,6 +11,95 @@ const pwaScript = document.currentScript;
     return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
   }
 
+  const installKey = "owl-install-hidden";
+  const offer = document.querySelector("[data-install-offer]");
+  const installButton = document.querySelector("[data-install]");
+  const dismissButton = document.querySelector("[data-install-dismiss]");
+  const hint = document.querySelector("#install-hint");
+  let deferredInstall = null;
+
+  function installHidden() {
+    try { return localStorage.getItem(installKey) === "1"; }
+    catch (error) { return false; }
+  }
+
+  function iosBrowser() {
+    const agent = navigator.userAgent || "";
+    const ipadDesktop = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+    return /iPad|iPhone|iPod/.test(agent) || ipadDesktop;
+  }
+
+  function chromiumBrowser() {
+    return "onbeforeinstallprompt" in window;
+  }
+
+  function showInstallOffer() {
+    if (!offer || installedApp() || installHidden()) return;
+    offer.hidden = false;
+  }
+
+  function hideInstallOffer() {
+    if (offer) offer.hidden = true;
+    if (hint && hint.open) hint.close();
+  }
+
+  function rememberPrompt() {
+    if (window.__owlInstallPrompt) deferredInstall = window.__owlInstallPrompt;
+  }
+
+  window.addEventListener("owl-install-ready", () => {
+    rememberPrompt();
+    showInstallOffer();
+  });
+  rememberPrompt();
+
+  window.addEventListener("appinstalled", hideInstallOffer);
+  const standalone = window.matchMedia("(display-mode: standalone)");
+  if (standalone.addEventListener) standalone.addEventListener("change", (event) => {
+    if (event.matches) hideInstallOffer();
+  });
+  if (iosBrowser() || chromiumBrowser()) showInstallOffer();
+
+  if (installButton) {
+    installButton.addEventListener("click", async () => {
+      rememberPrompt();
+      if (!deferredInstall) {
+        if (!hint) return;
+        const text = hint.querySelector("p");
+        if (text) {
+          text.textContent = iosBrowser()
+            ? "Нажмите «Поделиться», затем «На экран Домой»."
+            : "В меню браузера выберите «Установить Ночные голоса».";
+        }
+        hint.showModal();
+        return;
+      }
+      const pending = deferredInstall;
+      deferredInstall = null;
+      window.__owlInstallPrompt = null;
+      try {
+        await pending.prompt();
+        const choice = await pending.userChoice;
+        if (choice && choice.outcome === "accepted") hideInstallOffer();
+      } catch (error) {
+        /* Системное окно установки закроется само. */
+      }
+    });
+  }
+
+  if (dismissButton) {
+    dismissButton.addEventListener("click", () => {
+      try { localStorage.setItem(installKey, "1"); }
+      catch (error) { /* В этом окне кнопка всё равно исчезнет. */ }
+      hideInstallOffer();
+    });
+  }
+
+  if (hint) {
+    const closeHint = hint.querySelector("[data-install-close]");
+    if (closeHint) closeHint.addEventListener("click", () => hint.close());
+  }
+
   function ensureStatus() {
     if (status) return status;
     status = document.createElement("p");
