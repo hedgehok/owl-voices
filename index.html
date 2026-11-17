@@ -30,7 +30,6 @@
 <body>
   <div class="sky" aria-hidden="true"></div>
   <header class="top">
-    <div class="mast">
     <a class="brand" href="#/">
       <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
         <circle cx="24" cy="27.2" r="12.8" fill="none" stroke="currentColor" stroke-width="1.6"/>
@@ -44,15 +43,6 @@
       </svg>
       <span>Ночные голоса</span>
     </a>
-    <div class="install-offer" data-install-offer hidden>
-      <button class="install-app" type="button" data-install>Поставить на экран</button>
-      <button class="install-dismiss" type="button" data-install-dismiss aria-label="Больше не предлагать" title="Больше не предлагать">
-        <svg viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M4.2 4.2 11.8 11.8M11.8 4.2 4.2 11.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-      </button>
-    </div>
-    </div>
     <nav class="corner-links" aria-label="Разделы">
       <a class="corner-link" href="q/" target="_blank" rel="noopener" aria-label="Викторина" title="Викторина">
         <svg viewBox="0 0 32 32" aria-hidden="true">
@@ -81,6 +71,14 @@
         </svg>
       </a>
     </nav>
+    <div class="install-offer" data-install-offer hidden>
+      <button class="install-app" type="button" data-install>Поставить на экран</button>
+      <button class="install-dismiss" type="button" data-install-dismiss aria-label="Больше не предлагать" title="Больше не предлагать">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M4.2 4.2 11.8 11.8M11.8 4.2 4.2 11.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
   </header>
   <main id="app"></main>
   <div class="dock" id="dock" hidden>

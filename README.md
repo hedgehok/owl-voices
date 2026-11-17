@@ -8,7 +8,7 @@
 node server.mjs
 ```
 
-Откройте http://localhost:8080
+Откройте http://localhost:27463
 
 ## На обычном сервере
 

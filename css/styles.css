@@ -67,12 +67,9 @@ h1, h2, h3 { line-height: 1.12; margin: 0; }
   margin: 0 auto;
   padding: 22px 24px 0;
 }
-.mast {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  min-width: 0;
-}
+.brand { order: 1; }
+.install-offer { order: 2; }
+.corner-links { order: 3; }
 .brand {
   display: inline-flex;
   flex: none;
@@ -610,10 +607,13 @@ dialog .text-button {
   outline-offset: 3px;
 }
 
-@media (max-width: 640px) {
-  .top { row-gap: 12px; }
-  .mast { flex: 1 0 100%; gap: 10px; }
-  .corner-links { margin-left: auto; }
+@media (max-width: 720px) {
+  .corner-links { order: 2; }
+  .install-offer {
+    order: 3;
+    flex: 1 0 100%;
+    margin-top: -2px;
+  }
 }
 
 @media (max-width: 860px) {
