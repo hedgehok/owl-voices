@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Трансляции — Ночные голоса</title>
+  <meta name="description" content="Живые камеры сипухи и филина: гнездовой ящик в Англии и руины в долине реки Ар.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101410">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Ночные голоса">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../icons/icon-180.png">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="live.css">
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <header class="top">
+    <a class="brand" href="../">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="27.2" r="12.8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M13.4 18.4 10.2 8.2 20.6 15.8z" fill="currentColor"/>
+        <path d="M34.6 18.4 37.8 8.2 27.4 15.8z" fill="currentColor"/>
+        <circle cx="18.2" cy="25.8" r="3.7" fill="#e2b15a"/>
+        <circle cx="29.8" cy="25.8" r="3.7" fill="#e2b15a"/>
+        <circle cx="18.9" cy="26" r="1.4" fill="#1a140c"/>
+        <circle cx="29.1" cy="26" r="1.4" fill="#1a140c"/>
+        <path d="M22.8 30h2.4L24 33.3z" fill="currentColor"/>
+      </svg>
+      <span>Ночные голоса</span>
+    </a>
+    <a class="atlas-link" href="../">К атласу</a>
+  </header>
+  <main>
+    <p class="eyebrow">Прямой эфир</p>
+    <h1>Трансляции</h1>
+    <p class="lede">Два гнезда из атласа, которые можно смотреть сейчас. Сипуха живёт в ящике круглый год. Филины держат камеры на старых руинах.</p>
+
+    <div class="room">
+      <div class="stage is-tall" data-stage>
+        <iframe
+          data-player
+          src="https://peaky-weather.web.app/Barn_Owl_Live_Widget02.html"
+          title="Прямой эфир сипухи, Barn Owl Live"
+          allow="autoplay; encrypted-media; fullscreen"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+
+      <div class="cams" role="tablist" aria-label="Камеры">
+        <button class="cam" type="button" role="tab" id="cam-barn" aria-selected="true" aria-controls="about-barn" data-cam="barn">
+          <span class="species">Сипуха</span>
+          <span class="where">Пик-Дистрикт, Англия</span>
+          <span class="detail">Гнездовой ящик, день и ночь</span>
+        </button>
+        <button class="cam" type="button" role="tab" id="cam-ruin3" aria-selected="false" aria-controls="about-ruin3" data-cam="ruin3">
+          <span class="species">Филин</span>
+          <span class="where">Долина реки Ар, Германия</span>
+          <span class="detail">Руины, камера 3</span>
+        </button>
+        <button class="cam" type="button" role="tab" id="cam-ruin4" aria-selected="false" aria-controls="about-ruin4" data-cam="ruin4">
+          <span class="species">Филин</span>
+          <span class="where">Долина реки Ар, Германия</span>
+          <span class="detail">Руины, камера 4</span>
+        </button>
+      </div>
+
+      <div class="stories">
+        <article class="about" id="about-barn" data-about="barn">
+          <h2>Сипуха <span class="latin">Tyto alba</span></h2>
+          <p>Ящик стоит в Пик-Дистрикте и снимается круглосуточно. Ночью камера переходит на инфракрасный свет. Днём птица часто спит в ящике, к сумеркам вылетает на охоту. Звук включается на самом плеере.</p>
+          <p>Эфир ведёт Barn Owl Live. Автор разрешает показывать камеру на других сайтах и просит оставить подпись — она стоит под картинкой.</p>
+          <div class="links">
+            <a href="https://barnowl.live/live-stream-barn-owl-camera/" target="_blank" rel="noopener">Страница эфира</a>
+            <a href="../#/tyto-alba">Сипуха в атласе</a>
+          </div>
+        </article>
+        <article class="about" id="about-ruin3" data-about="ruin3" hidden>
+          <h2>Филин <span class="latin">Bubo bubo</span></h2>
+          <p>Камера 3 смотрит на руины, где филин гнездится с 2008 года. В ноябре гнездо часто пустует часами: взрослые возвращаются ближе к зиме, а птенцы этого года уже разлетелись. Если плеер пишет, что эфир закончился, трансляцию перезапустили — она продолжается на сайте EGE.</p>
+          <p>Камеры держит общество по сохранению сов, Gesellschaft zur Erhaltung der Eulen.</p>
+          <div class="links">
+            <a href="https://egeeulen.de/uhu-webcams/livestream-cam-3/" target="_blank" rel="noopener">Камера на сайте EGE</a>
+            <a href="https://www.youtube.com/watch?v=3sjWPFWfl-k" target="_blank" rel="noopener">Открыть на YouTube</a>
+            <a href="../#/bubo-bubo">Филин в атласе</a>
+          </div>
+        </article>
+        <article class="about" id="about-ruin4" data-about="ruin4" hidden>
+          <h2>Филин <span class="latin">Bubo bubo</span></h2>
+          <p>Камера 4 — второй вид на ту же пару и те же руины. Птица может долго не попадать в кадр: днём она сидит в тени, а охотится после заката. Если картинка остановилась, откройте эфир на сайте EGE: адрес ролика меняется, когда камеру перезапускают.</p>
+          <p>Камеры держит общество по сохранению сов, Gesellschaft zur Erhaltung der Eulen.</p>
+          <div class="links">
+            <a href="https://egeeulen.de/uhu-webcams/livestream-cam-4/" target="_blank" rel="noopener">Камера на сайте EGE</a>
+            <a href="https://www.youtube.com/watch?v=fMHC46EXp90" target="_blank" rel="noopener">Открыть на YouTube</a>
+            <a href="../#/bubo-bubo">Филин в атласе</a>
+          </div>
+        </article>
+      </div>
+    </div>
+    <p class="fine">Картинка идёт с чужих камер и появляется только при сети. Записи здесь не хранятся.</p>
+  </main>
+  <script src="live.js"></script>
+  <script src="../js/pwa.js"></script>
+</body>
+</html>

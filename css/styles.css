@@ -616,6 +616,14 @@ dialog .text-button {
   }
 }
 
+@media (max-width: 420px) {
+  .top { padding-left: 16px; padding-right: 16px; column-gap: 8px; }
+  #app { padding-left: 16px; padding-right: 16px; }
+  .corner-links { gap: 2px; }
+  .corner-link { width: 32px; height: 32px; }
+  .corner-link svg { width: 24px; height: 24px; }
+}
+
 @media (max-width: 860px) {
   .hero, .species-head, .species-grid, .habitat { display: block; }
   .tour { margin-top: 18px; }
