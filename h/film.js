@@ -12,7 +12,6 @@ let front = 0;
 let due = 0;
 let beat = 0;
 let soundOn = false;
-let musicOpen = null;
 const tokens = new WeakMap();
 
 function wait(ms) {
@@ -243,29 +242,44 @@ async function presentFirst() {
   await preparing;
 }
 
-async function openMusic() {
+function usePlaybackSession() {
+  if (!navigator.audioSession) return;
+  try {
+    navigator.audioSession.type = "playback";
+  } catch (error) {
+    /* The phone may still mute the film with its silent switch. */
+  }
+}
+
+async function prepareMusic() {
+  usePlaybackSession();
+  try {
+    const cache = await caches.open("owl-audio-v1");
+    const cached = await cache.match(new URL("music.m4a", location.href).href);
+    if (!cached) return;
+    const bytes = await cached.arrayBuffer();
+    if (!music.paused) return;
+    music.src = URL.createObjectURL(new Blob([bytes], { type: "audio/mp4" }));
+  } catch (error) {
+    /* The soundtrack in the page still plays while the saved copy is missing. */
+  }
+}
+
+function startMusic() {
+  usePlaybackSession();
   if (soundOn && !music.paused) {
     hidePrompt();
     return;
   }
   music.volume = 0.8;
   music.loop = true;
-  try {
-    await music.play();
+  music.play().then(() => {
     soundOn = true;
     hidePrompt();
-  } catch (error) {
+  }).catch(() => {
     soundOn = false;
     showPrompt();
-  }
-}
-
-function startMusic() {
-  if (musicOpen) return musicOpen;
-  musicOpen = openMusic().finally(() => {
-    musicOpen = null;
   });
-  return musicOpen;
 }
 
 async function keepAwake() {
@@ -291,7 +305,7 @@ function watch() {
 
 async function run() {
   if (!frames.length) return;
-  startMusic();
+  prepareMusic().then(() => startMusic());
   keepAwake();
   watch();
   await presentFirst();

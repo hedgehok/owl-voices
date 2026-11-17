@@ -1,6 +1,7 @@
 const CORE = "owl-core-v1";
 const AUDIO = "owl-audio-v1";
 const PHOTOS = "owl-photos-v1";
+const VIDEO = "owl-video-v1";
 const META = "owl-meta";
 const MARK = "/offline-pack";
 
@@ -67,6 +68,7 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
   if (url.href === self.location.href) return;
+  if (/\/h\/music\.m4a$/i.test(url.pathname)) return;
   event.respondWith(route(request, event, url));
 });
 
@@ -97,6 +99,7 @@ async function forgetUnasked() {
   await caches.delete(CORE);
   await caches.delete(AUDIO);
   await caches.delete(PHOTOS);
+  await caches.delete(VIDEO);
 }
 
 async function enableOffline(urls) {
@@ -108,18 +111,33 @@ async function enableOffline(urls) {
       await cache.put(MARK, new Response("1"));
       pack = true;
     }
-    await prefetchPhotos(urls);
+    await ensureMusic();
+    const photos = await prefetchPhotos(urls);
+    if (photos === "storage" || photos === "offline") return;
+    await prefetchVideos();
   })().finally(() => {
     enabling = null;
   });
   return enabling;
 }
 
+async function ensureMusic() {
+  try {
+    const cache = await caches.open(AUDIO);
+    const url = fromRoot("h/music.m4a").href;
+    if (await cache.match(url)) return;
+    await cache.add(url);
+  } catch (error) {
+    /* Саундтрек докачается при следующем запуске с сетью. */
+  }
+}
+
 async function route(request, event, url) {
   if (!(await packEnabled())) return fetch(request);
   const rel = relativePath(url);
   if (request.mode === "navigate" || isShell(rel)) return networkFirst(request, CORE);
-  if (rel.startsWith("media/audio/") && /\.(mp3|ogg)$/i.test(rel)) return audioResponse(request, event);
+  if (rel.startsWith("media/audio/") && /\.(mp3|ogg)$/i.test(rel)) return cachedMedia(request, event, AUDIO);
+  if (/^h\/video\/[^/]+\.mp4$/i.test(rel)) return cachedMedia(request, event, VIDEO);
   if (/\.jpe?g$/i.test(rel)) return photoResponse(request);
   return fetch(request);
 }
@@ -179,8 +197,8 @@ async function networkFirst(request, cacheName) {
   }
 }
 
-async function audioResponse(request, event) {
-  const cache = await caches.open(AUDIO);
+async function cachedMedia(request, event, cacheName) {
+  const cache = await caches.open(cacheName);
   const cached = await cache.match(request.url);
   if (cached) {
     const range = request.headers.get("range");
@@ -188,7 +206,7 @@ async function audioResponse(request, event) {
     return sliceRange(cached, range);
   }
   if (request.headers.get("range")) {
-    event.waitUntil(storeAudio(request.url));
+    event.waitUntil(storeMedia(request.url, cacheName));
     return fetch(request);
   }
   const response = await fetch(request);
@@ -196,11 +214,20 @@ async function audioResponse(request, event) {
   return response;
 }
 
-async function storeAudio(url) {
-  const cache = await caches.open(AUDIO);
+async function storeMedia(url, cacheName) {
+  const cache = await caches.open(cacheName);
   if (await cache.match(url)) return;
   const response = await fetch(url);
   if (response.ok && response.status === 200) await cache.put(url, response);
+}
+
+async function filmVideoUrls() {
+  const response = await fetch(fromRoot("h/frames.js"));
+  if (!response.ok) return [];
+  const source = await response.text();
+  const urls = new Set();
+  for (const match of source.matchAll(/src:"(video\/[^"]+\.mp4)"/g)) urls.add(fromRoot(`h/${match[1]}`).href);
+  return [...urls];
 }
 
 async function photoResponse(request) {
@@ -246,15 +273,24 @@ async function sliceRange(response, rangeHeader) {
 
 async function prefetchPhotos(urls) {
   if (photoJob) return photoJob;
-  photoJob = downloadPhotos(urls).finally(() => {
+  photoJob = downloadSet(urls, PHOTOS, "photos").finally(() => {
     photoJob = null;
   });
   return photoJob;
 }
 
-async function downloadPhotos(urls) {
+async function prefetchVideos() {
+  try {
+    await downloadSet(await filmVideoUrls(), VIDEO, "videos");
+  } catch (error) {
+    /* Ролики докачаются при следующем запуске с сетью. */
+  }
+}
+
+async function downloadSet(urls, cacheName, kind) {
   const unique = [...new Set(urls)];
-  const cache = await caches.open(PHOTOS);
+  if (!unique.length) return "";
+  const cache = await caches.open(cacheName);
   const pending = [];
   let done = 0;
   for (const url of unique) {
@@ -263,13 +299,14 @@ async function downloadPhotos(urls) {
   }
   const total = unique.length;
   if (!pending.length) {
-    await report(done, total, 0, true);
-    return;
+    await report(kind, done, total, 0, true);
+    return "";
   }
-  await report(done, total, 0, false);
+  await report(kind, done, total, 0, false);
   let failed = 0;
   let cursor = 0;
   let stopped = false;
+  let stopReason = "";
 
   async function worker() {
     while (!stopped && cursor < pending.length) {
@@ -283,27 +320,33 @@ async function downloadPhotos(urls) {
         failed += 1;
         if (error && error.name === "QuotaExceededError") {
           stopped = true;
-          await report(done, total, failed, true, "storage");
+          stopReason = "storage";
+          await report(kind, done, total, failed, true, "storage");
           return;
         }
         const offline = !error || error.name === "TypeError";
         if (offline && failed >= 3 && done === total - pending.length) {
           stopped = true;
-          await report(done, total, failed, true, "offline");
+          stopReason = "offline";
+          await report(kind, done, total, failed, true, "offline");
           return;
         }
       }
       done += 1;
-      await report(done, total, failed, false);
+      await report(kind, done, total, failed, false);
     }
   }
 
   await Promise.all([worker(), worker()]);
-  if (!stopped) await report(done, total, failed, true, failed ? "partial" : "");
+  if (!stopped) {
+    stopReason = failed ? "partial" : "";
+    await report(kind, done, total, failed, true, stopReason);
+  }
+  return stopReason;
 }
 
-async function report(done, total, failed, finished, reason) {
+async function report(kind, done, total, failed, finished, reason) {
   const clients = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
-  const message = { type: "photos", done, total, failed, finished: !!finished, reason: reason || "" };
+  const message = { type: kind, done, total, failed, finished: !!finished, reason: reason || "" };
   for (const client of clients) client.postMessage(message);
 }

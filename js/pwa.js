@@ -147,29 +147,32 @@ const pwaScript = document.currentScript;
 
   navigator.serviceWorker.addEventListener("message", (event) => {
     const data = event.data;
-    if (!data || data.type !== "photos" || !status) return;
+    if (!data || (data.type !== "photos" && data.type !== "videos") || !status) return;
+    const clips = data.type === "videos";
+    const noun = clips ? "ролики" : "фотографии";
+    const counted = clips ? "роликов" : "фотографий";
     if (data.finished && !data.failed && !data.reason) {
       status.hidden = true;
       return;
     }
     if (data.reason === "storage") {
       status.hidden = false;
-      status.textContent = "Памяти хватило не на все фотографии";
+      status.textContent = `Памяти хватило не на все ${noun}`;
       return;
     }
     if (data.reason === "offline") {
       status.hidden = false;
-      status.textContent = "Фотографии скачаются, когда появится сеть";
+      status.textContent = clips ? "Ролики скачаются, когда появится сеть" : "Фотографии скачаются, когда появится сеть";
       return;
     }
     if (data.finished && data.reason === "partial") {
       status.hidden = false;
-      status.textContent = `Скачано ${data.done - data.failed} из ${data.total} фотографий`;
+      status.textContent = `Скачано ${data.done - data.failed} из ${data.total} ${counted}`;
       return;
     }
     if (!data.finished) {
       status.hidden = false;
-      status.textContent = `Фотографии скачиваются · ${data.done} из ${data.total}`;
+      status.textContent = clips ? `Ролики скачиваются · ${data.done} из ${data.total}` : `Фотографии скачиваются · ${data.done} из ${data.total}`;
     }
   });
 
