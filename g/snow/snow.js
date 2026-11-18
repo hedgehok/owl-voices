@@ -1,6 +1,7 @@
 (() => {
   const ROUND = 60;
   const SPEED = 118;
+  const OWL_Y = 0.34;
   const TAU = Math.PI * 2;
 
   const canvas = document.querySelector("#field");
@@ -93,7 +94,7 @@
     rows = [];
     cursor = 0;
     ensure();
-    const under = rowAt(view.h * 0.7);
+    const under = rowAt(view.h * OWL_Y);
     if (under) {
       under.snowL = 0.16;
       under.snowR = 0.84;
@@ -114,7 +115,7 @@
   }
 
   function owlWorld() {
-    return world + view.h * 0.7;
+    return world + view.h * OWL_Y;
   }
 
   function rowAt(y) {
@@ -263,7 +264,7 @@
   function drawOwl(margin, fieldW) {
     const { w, h } = view;
     const px = margin + x * fieldW;
-    const py = h * 0.7;
+    const py = h * OWL_Y;
     const u = Math.max(11, w * 0.034);
     ctx.save();
     ctx.translate(px, py);
