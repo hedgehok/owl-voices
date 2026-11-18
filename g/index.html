@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Шея — Ночные голоса</title>
+  <meta name="description" content="Тело сидит на ветке, голова поворачивается почти за спину. Минута до рассвета.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101410">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Ночные голоса">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../icons/icon-180.png">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <header class="top">
+    <a class="brand" href="../">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="27.2" r="12.8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M13.4 18.4 10.2 8.2 20.6 15.8z" fill="currentColor"/>
+        <path d="M34.6 18.4 37.8 8.2 27.4 15.8z" fill="currentColor"/>
+        <circle cx="18.2" cy="25.8" r="3.7" fill="#e2b15a"/>
+        <circle cx="29.8" cy="25.8" r="3.7" fill="#e2b15a"/>
+        <circle cx="18.9" cy="26" r="1.4" fill="#1a140c"/>
+        <circle cx="29.1" cy="26" r="1.4" fill="#1a140c"/>
+        <path d="M22.8 30h2.4L24 33.3z" fill="currentColor"/>
+      </svg>
+      <span>Ночные голоса</span>
+    </a>
+    <a class="atlas-link" href="../">К атласу</a>
+  </header>
+  <main>
+    <p class="eyebrow">Игра</p>
+    <h1>Шея</h1>
+    <p class="lede">Тело сидит на ветке и не двигается. Голова поворачивается почти за спину — и ночь видна только туда, куда смотрит лицо.</p>
+
+    <div class="play">
+      <div class="stage">
+        <canvas id="field" tabindex="0" aria-label="Поляна. Веди палец по кругу. Короткое касание по свету — бросок."></canvas>
+        <div class="veil" data-veil>
+          <p data-veil-text>Минута, пока не рассветёт.</p>
+          <button class="sit" type="button" data-start>Сесть на ветку</button>
+        </div>
+      </div>
+      <div class="hud">
+        <p data-score>В гнезде —</p>
+        <p data-clock>до рассвета</p>
+      </div>
+      <div class="dawn" aria-hidden="true"><span data-dawn></span></div>
+    </div>
+
+    <p class="hint">Веди палец по кругу — голова повернётся. Короткое касание по свету — бросок. Если крутить слишком резко, ветка скрипит и мышь срывается. Лису не хватай: посмотри на неё, и она уйдёт.</p>
+  </main>
+  <script src="game.js"></script>
+  <script src="../js/pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+:root {
+  --bg: #101410;
+  --line: rgba(243, 232, 210, 0.12);
+  --line-strong: rgba(226, 177, 90, 0.55);
+  --text: #f4f0e6;
+  --muted: #b7ae9f;
+  --faint: #8f877a;
+  --gold: #e2b15a;
+  --gold-soft: #f0d7a2;
+  --ink: #1a140c;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  --serif: Spectral, Palatino, Georgia, serif;
+  --sans: "Golos Text", "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  background: var(--bg);
+  color-scheme: dark;
+}
+button, a { font-family: inherit; }
+button { color: inherit; }
+a { color: inherit; }
+h1, .veil p {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.12;
+  margin: 0;
+}
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(520px 380px at 88% -10%, rgba(226, 177, 90, 0.16), transparent 70%),
+    radial-gradient(640px 480px at -10% 110%, rgba(90, 120, 96, 0.16), transparent 68%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+}
+
+.top, main { position: relative; z-index: 1; }
+.top {
+  display: flex;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 22px 24px 0;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mark {
+  width: 36px;
+  height: 36px;
+  color: var(--gold-soft);
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+.brand:hover .mark,
+.brand:focus-visible .mark { background: rgba(226, 177, 90, 0.12); }
+.atlas-link {
+  margin-left: auto;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+.atlas-link:hover,
+.atlas-link:focus-visible { border-color: var(--line-strong); color: var(--text); }
+
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 24px 72px;
+}
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--gold-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); }
+.lede {
+  max-width: 40rem;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.play { max-width: 560px; margin-top: 28px; }
+.stage {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid rgba(226, 177, 90, 0.32);
+  border-radius: 28px;
+  overflow: hidden;
+  background: #0c100e;
+  box-shadow: var(--shadow);
+  touch-action: none;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  padding: 24px 22px 26px;
+  text-align: center;
+  background: linear-gradient(to top, rgba(12, 16, 14, 0.92) 0%, rgba(12, 16, 14, 0.55) 42%, transparent 68%);
+}
+.veil p {
+  max-width: 18rem;
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+.sit {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 22px;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+.sit:hover, .sit:focus-visible { background: var(--gold-soft); }
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 12px 2px 0;
+}
+.hud p { margin: 0; color: var(--muted); }
+.dawn {
+  height: 3px;
+  margin: 10px 2px 0;
+  border-radius: 999px;
+  background: rgba(243, 232, 210, 0.1);
+  overflow: hidden;
+}
+.dawn span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #8a7040, #f0d7a2);
+}
+.hint {
+  max-width: 40rem;
+  margin: 18px 0 0;
+  color: var(--faint);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 640px) {
+  .top { padding: 16px 16px 0; }
+  main { padding: 28px 16px 56px; }
+  .stage { border-radius: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

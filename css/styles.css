@@ -616,12 +616,14 @@ dialog .text-button {
   }
 }
 
-@media (max-width: 420px) {
-  .top { padding-left: 16px; padding-right: 16px; column-gap: 8px; }
+@media (max-width: 480px) {
+  .top { padding-left: 16px; padding-right: 16px; column-gap: 6px; }
   #app { padding-left: 16px; padding-right: 16px; }
-  .corner-links { gap: 2px; }
-  .corner-link { width: 32px; height: 32px; }
-  .corner-link svg { width: 24px; height: 24px; }
+  .brand { gap: 6px; }
+  .mark { width: 32px; height: 32px; }
+  .corner-links { gap: 0; }
+  .corner-link { width: 28px; height: 28px; }
+  .corner-link svg { width: 22px; height: 22px; }
 }
 
 @media (max-width: 860px) {
