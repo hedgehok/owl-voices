@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>По лесу — Ночные голоса</title>
+  <meta name="description" content="Сова летит по тропам и собирает мышей. Лисы ходят рядом, а моль на время позволяет их поймать.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101410">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Ночные голоса">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../icons/icon-180.png">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../css/fonts.css">
+  <link rel="stylesheet" href="../play.css">
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <header class="top">
+    <a class="brand" href="../../">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="27.2" r="12.8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M13.4 18.4 10.2 8.2 20.6 15.8z" fill="currentColor"/>
+        <path d="M34.6 18.4 37.8 8.2 27.4 15.8z" fill="currentColor"/>
+        <circle cx="18.2" cy="25.8" r="3.7" fill="#e2b15a"/>
+        <circle cx="29.8" cy="25.8" r="3.7" fill="#e2b15a"/>
+        <circle cx="18.9" cy="26" r="1.4" fill="#1a140c"/>
+        <circle cx="29.1" cy="26" r="1.4" fill="#1a140c"/>
+        <path d="M22.8 30h2.4L24 33.3z" fill="currentColor"/>
+      </svg>
+      <span>Ночные голоса</span>
+    </a>
+    <a class="atlas-link" href="../">К играм</a>
+  </header>
+  <main>
+    <p class="eyebrow">Игра</p>
+    <h1>По лесу</h1>
+    <p class="lede">Сова летит по ночным тропам и собирает мышей. Лисы ходят теми же тропами. Крупная моль на время перепугивает их, и лису можно поймать.</p>
+    <div class="play">
+      <div class="stage">
+        <canvas id="field" tabindex="0" aria-label="Лес. Веди сову по тропам и собирай мышей. Лисы охотятся следом. Моль позволяет поймать лису."></canvas>
+        <div class="veil" data-veil>
+          <p data-veil-text>Собери мышей и не попадись лисам.</p>
+          <button class="sit" type="button" data-start>Вылететь</button>
+        </div>
+      </div>
+      <div class="hud">
+        <p data-score>Счёт —</p>
+        <p data-clock>попытки —</p>
+      </div>
+      <div class="dawn" aria-hidden="true"><span data-dawn></span></div>
+    </div>
+    <p class="hint">Веди пальцем или стрелками. Сова берёт поворот, как только в ту сторону есть тропа, и ещё успевает, если жест чуть запоздал. Разворот — сразу. Мышь — десять очков, моль — пятьдесят, и пока моль действует, пойманная лиса приносит очки. Три встречи с лисой — конец круга.</p>
+  </main>
+  <script src="maze.js"></script>
+  <script src="../../js/pwa.js"></script>
+</body>
+</html>
