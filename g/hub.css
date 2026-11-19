@@ -1,38 +1,108 @@
+.top,
+main { max-width: 880px; }
+
+.lede::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 1px;
+  margin-top: 22px;
+  background: rgba(226, 177, 90, 0.55);
+}
+
 .games {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  max-width: 960px;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
   margin-top: 28px;
 }
+
 .game {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  min-height: 168px;
-  padding: 22px 22px 20px;
+  overflow: hidden;
   text-decoration: none;
-  border: 1px solid rgba(226, 177, 90, 0.32);
-  border-radius: 22px;
-  background: rgba(12, 16, 14, 0.45);
+  border: 1px solid rgba(226, 177, 90, 0.28);
+  border-radius: 24px;
+  background: rgba(12, 16, 14, 0.62);
   box-shadow: var(--shadow);
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
+
+.game:hover,
+.game:focus-visible {
+  border-color: var(--line-strong);
+  transform: translateY(-3px);
+}
+
+.game:hover h2,
+.game:focus-visible h2 { color: var(--gold-soft); }
+
+.scene {
+  position: relative;
+  display: block;
+  aspect-ratio: 360 / 148;
+  background: #121816;
+}
+
+.scene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.scene::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24%;
+  background: linear-gradient(to top, rgba(12, 16, 14, 0.92), transparent);
+  pointer-events: none;
+}
+
+.glide {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.45s ease;
+}
+
+.game:hover .glide,
+.game:focus-visible .glide { transform: translate(7px, -3px); }
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 4px 20px 20px;
+}
+
+.kicker {
+  color: var(--gold-soft);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
 .game h2 {
   font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-size: clamp(1.7rem, 3vw, 2.15rem);
   font-weight: 600;
   letter-spacing: -0.012em;
   line-height: 1.05;
+  transition: color 0.2s ease;
 }
+
 .game p {
-  margin: 0;
+  margin: 4px 0 0;
   color: var(--muted);
 }
-.game:hover,
-.game:focus-visible { border-color: var(--line-strong); }
 
 @media (max-width: 800px) {
   .games { grid-template-columns: 1fr; }
-  .game { min-height: 0; border-radius: 18px; }
+  .game { border-radius: 20px; }
+  .copy { padding: 2px 16px 16px; }
 }
